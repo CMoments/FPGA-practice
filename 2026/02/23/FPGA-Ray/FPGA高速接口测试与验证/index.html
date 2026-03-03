@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="项目创建与IP核添加在开发工具Vivado添加器件：Xlinx7 Series，选择芯片型号”xc7k325tffg900-2”,并添加IBERT IP核。                  尝试生成官方示例工程的比特流：             1234567Writing bitstream .&#x2F;example_ibert_7series_gtx_0.bit...INFO: [Vivado 1">
+<meta property="og:type" content="article">
+<meta property="og:title" content="FPGA高速接口测试与验证">
+<meta property="og:url" content="https://cmoments.github.io/FPGA-practice/2026/02/23/FPGA-Ray/FPGA%E9%AB%98%E9%80%9F%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95%E4%B8%8E%E9%AA%8C%E8%AF%81/index.html">
+<meta property="og:site_name" content="ML-KEM&#39;s FPGA Practice">
+<meta property="og:description" content="项目创建与IP核添加在开发工具Vivado添加器件：Xlinx7 Series，选择芯片型号”xc7k325tffg900-2”,并添加IBERT IP核。                  尝试生成官方示例工程的比特流：             1234567Writing bitstream .&#x2F;example_ibert_7series_gtx_0.bit...INFO: [Vivado 1">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cmoments.github.io/FPGA-practice/2026/02/23/FPGA-Ray/FPGA%E9%AB%98%E9%80%9F%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95%E4%B8%8E%E9%AA%8C%E8%AF%81/install.png">
+<meta property="og:image" content="https://cmoments.github.io/FPGA-practice/2026/02/23/FPGA-Ray/FPGA%E9%AB%98%E9%80%9F%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95%E4%B8%8E%E9%AA%8C%E8%AF%81/create-project.png">
+<meta property="og:image" content="https://cmoments.github.io/FPGA-practice/2026/02/23/FPGA-Ray/FPGA%E9%AB%98%E9%80%9F%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95%E4%B8%8E%E9%AA%8C%E8%AF%81/IBERT.png">
+<meta property="og:image" content="https://cmoments.github.io/FPGA-practice/2026/02/23/FPGA-Ray/FPGA%E9%AB%98%E9%80%9F%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95%E4%B8%8E%E9%AA%8C%E8%AF%81/newproject-summary.png">
+<meta property="og:image" content="https://cmoments.github.io/FPGA-practice/2026/02/23/FPGA-Ray/FPGA%E9%AB%98%E9%80%9F%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95%E4%B8%8E%E9%AA%8C%E8%AF%81/demo-analyze.png">
+<meta property="og:image" content="https://cmoments.github.io/FPGA-practice/2026/02/23/FPGA-Ray/FPGA%E9%AB%98%E9%80%9F%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95%E4%B8%8E%E9%AA%8C%E8%AF%81/demo-bitstream.png">
+<meta property="article:published_time" content="2026-02-23T07:40:51.000Z">
+<meta property="article:modified_time" content="2026-02-23T10:50:58.310Z">
+<meta property="article:author" content="ML-KEM">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cmoments.github.io/FPGA-practice/2026/02/23/FPGA-Ray/FPGA%E9%AB%98%E9%80%9F%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95%E4%B8%8E%E9%AA%8C%E8%AF%81/install.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="../../../../../images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="../../../../../images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="../../../../../images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>FPGA高速接口测试与验证</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="../../../../../css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css" />
+  
+
+
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="#FPGA-Ray">FPGA-Ray</a></li><!--
+     --><!--
+       --><li><a href="#EDA">EDA</a></li><!--
+     --><!--
+       --><li><a href="#YSYC">YSYC</a></li><!--
+     --><!--
+       --><li><a href="../../../../../search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="../../YSYC/verilog/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://cmoments.github.io/FPGA-practice/2026/02/23/FPGA-Ray/FPGA%E9%AB%98%E9%80%9F%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95%E4%B8%8E%E9%AA%8C%E8%AF%81/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://cmoments.github.io/FPGA-practice/2026/02/23/FPGA-Ray/FPGA%E9%AB%98%E9%80%9F%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95%E4%B8%8E%E9%AA%8C%E8%AF%81/&text=FPGA高速接口测试与验证"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://cmoments.github.io/FPGA-practice/2026/02/23/FPGA-Ray/FPGA%E9%AB%98%E9%80%9F%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95%E4%B8%8E%E9%AA%8C%E8%AF%81/&title=FPGA高速接口测试与验证"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://cmoments.github.io/FPGA-practice/2026/02/23/FPGA-Ray/FPGA%E9%AB%98%E9%80%9F%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95%E4%B8%8E%E9%AA%8C%E8%AF%81/&is_video=false&description=FPGA高速接口测试与验证"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=FPGA高速接口测试与验证&body=Check out this article: https://cmoments.github.io/FPGA-practice/2026/02/23/FPGA-Ray/FPGA%E9%AB%98%E9%80%9F%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95%E4%B8%8E%E9%AA%8C%E8%AF%81/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://cmoments.github.io/FPGA-practice/2026/02/23/FPGA-Ray/FPGA%E9%AB%98%E9%80%9F%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95%E4%B8%8E%E9%AA%8C%E8%AF%81/&title=FPGA高速接口测试与验证"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://cmoments.github.io/FPGA-practice/2026/02/23/FPGA-Ray/FPGA%E9%AB%98%E9%80%9F%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95%E4%B8%8E%E9%AA%8C%E8%AF%81/&title=FPGA高速接口测试与验证"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://cmoments.github.io/FPGA-practice/2026/02/23/FPGA-Ray/FPGA%E9%AB%98%E9%80%9F%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95%E4%B8%8E%E9%AA%8C%E8%AF%81/&title=FPGA高速接口测试与验证"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://cmoments.github.io/FPGA-practice/2026/02/23/FPGA-Ray/FPGA%E9%AB%98%E9%80%9F%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95%E4%B8%8E%E9%AA%8C%E8%AF%81/&title=FPGA高速接口测试与验证"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://cmoments.github.io/FPGA-practice/2026/02/23/FPGA-Ray/FPGA%E9%AB%98%E9%80%9F%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95%E4%B8%8E%E9%AA%8C%E8%AF%81/&name=FPGA高速接口测试与验证&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://cmoments.github.io/FPGA-practice/2026/02/23/FPGA-Ray/FPGA%E9%AB%98%E9%80%9F%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95%E4%B8%8E%E9%AA%8C%E8%AF%81/&t=FPGA高速接口测试与验证"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E5%88%9B%E5%BB%BA%E4%B8%8EIP%E6%A0%B8%E6%B7%BB%E5%8A%A0"><span class="toc-number">1.</span> <span class="toc-text">项目创建与IP核添加</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%9D%E8%AF%95%E7%94%9F%E6%88%90%E5%AE%98%E6%96%B9%E7%A4%BA%E4%BE%8B%E5%B7%A5%E7%A8%8B%E7%9A%84%E6%AF%94%E7%89%B9%E6%B5%81%EF%BC%9A"><span class="toc-number">1.1.</span> <span class="toc-text">尝试生成官方示例工程的比特流：</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%8E%A5%E5%8F%A3%E8%BF%9E%E6%8E%A5%E4%B8%8E%E9%85%8D%E7%BD%AE"><span class="toc-number">2.</span> <span class="toc-text">接口连接与配置</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#IBERT-IP%E6%A0%B8%E5%AE%9A%E5%88%B6%E4%B8%8E%E7%94%9F%E6%88%90"><span class="toc-number">3.</span> <span class="toc-text">IBERT IP核定制与生成</span></a></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        FPGA高速接口测试与验证
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">ML-KEM</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2026-02-23T07:40:51.000Z" class="dt-published" itemprop="datePublished">2026-02-23</time>
+        
+      
+    </div>
+
+
+      
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h1 id="项目创建与IP核添加"><a href="#项目创建与IP核添加" class="headerlink" title="项目创建与IP核添加"></a>项目创建与IP核添加</h1><p>在开发工具Vivado添加器件：Xlinx7 Series，选择芯片型号”xc7k325tffg900-2”,<a target="_blank" rel="noopener" href="https://docs.amd.com/r/zh-CN/ug908-vivado-programming-debugging/%E4%BD%BF%E7%94%A8-Vivado-IP-%E7%9B%AE%E5%BD%95%E7%94%9F%E6%88%90-IBERT-%E6%A0%B8">并添加IBERT IP核</a>。</p>
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 15px 0;">
+  <a data-fancybox="gallery" data-src="install.png" data-caption=""><img src="install.png" style="width: 100%; height: auto;"></a>
+  <a data-fancybox="gallery" data-src="create-project.png" data-caption=""><img src="create-project.png" style="width: 100%; height: auto;"></a>
+  <a data-fancybox="gallery" data-src="IBERT.png" data-caption=""><img src="IBERT.png" style="width: 100%; height: auto;"></a>
+  <a data-fancybox="gallery" data-src="newproject-summary.png" data-caption=""><img src="newproject-summary.png" style="width: 100%; height: auto;"></a>
+</div>
+
+
+
+<h2 id="尝试生成官方示例工程的比特流："><a href="#尝试生成官方示例工程的比特流：" class="headerlink" title="尝试生成官方示例工程的比特流："></a>尝试生成官方示例工程的比特流：</h2><div style="display: flex; gap: 15px 0; flex-wrap: wrap;" >
+  <a data-fancybox="gallery" data-src="demo-analyze.png" data-caption=""><img src="demo-analyze.png" style="width: 100%; height: auto;"></a>
+
+  <a data-fancybox="gallery" data-src="demo-bitstream.png" data-caption=""><img src="demo-bitstream.png" style="width: 100%; height: auto;"></a>
+</div>
+
+
+
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Writing bitstream ./example_ibert_7series_gtx_0.bit...</span><br><span class="line">INFO: [Vivado 12-1842] Bitgen Completed Successfully.</span><br><span class="line">INFO: [Common 17-83] Releasing license: Implementation</span><br><span class="line">124 Infos, 5 Warnings, 0 Critical Warnings and 0 Errors encountered.</span><br><span class="line">write_bitstream completed successfully</span><br><span class="line">write_bitstream: Time (s): cpu = 00:00:29 ; elapsed = 00:00:21 . Memory (MB): peak = 2817.785 ; gain = 498.496</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h1 id="接口连接与配置"><a href="#接口连接与配置" class="headerlink" title="接口连接与配置"></a>接口连接与配置</h1><h1 id="IBERT-IP核定制与生成"><a href="#IBERT-IP核定制与生成" class="headerlink" title="IBERT IP核定制与生成"></a>IBERT IP核定制与生成</h1>
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="#FPGA-Ray">FPGA-Ray</a></li>
+        
+          <li><a href="#EDA">EDA</a></li>
+        
+          <li><a href="#YSYC">YSYC</a></li>
+        
+          <li><a href="../../../../../search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E5%88%9B%E5%BB%BA%E4%B8%8EIP%E6%A0%B8%E6%B7%BB%E5%8A%A0"><span class="toc-number">1.</span> <span class="toc-text">项目创建与IP核添加</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%9D%E8%AF%95%E7%94%9F%E6%88%90%E5%AE%98%E6%96%B9%E7%A4%BA%E4%BE%8B%E5%B7%A5%E7%A8%8B%E7%9A%84%E6%AF%94%E7%89%B9%E6%B5%81%EF%BC%9A"><span class="toc-number">1.1.</span> <span class="toc-text">尝试生成官方示例工程的比特流：</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%8E%A5%E5%8F%A3%E8%BF%9E%E6%8E%A5%E4%B8%8E%E9%85%8D%E7%BD%AE"><span class="toc-number">2.</span> <span class="toc-text">接口连接与配置</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#IBERT-IP%E6%A0%B8%E5%AE%9A%E5%88%B6%E4%B8%8E%E7%94%9F%E6%88%90"><span class="toc-number">3.</span> <span class="toc-text">IBERT IP核定制与生成</span></a></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://cmoments.github.io/FPGA-practice/2026/02/23/FPGA-Ray/FPGA%E9%AB%98%E9%80%9F%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95%E4%B8%8E%E9%AA%8C%E8%AF%81/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://cmoments.github.io/FPGA-practice/2026/02/23/FPGA-Ray/FPGA%E9%AB%98%E9%80%9F%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95%E4%B8%8E%E9%AA%8C%E8%AF%81/&text=FPGA高速接口测试与验证"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://cmoments.github.io/FPGA-practice/2026/02/23/FPGA-Ray/FPGA%E9%AB%98%E9%80%9F%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95%E4%B8%8E%E9%AA%8C%E8%AF%81/&title=FPGA高速接口测试与验证"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://cmoments.github.io/FPGA-practice/2026/02/23/FPGA-Ray/FPGA%E9%AB%98%E9%80%9F%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95%E4%B8%8E%E9%AA%8C%E8%AF%81/&is_video=false&description=FPGA高速接口测试与验证"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=FPGA高速接口测试与验证&body=Check out this article: https://cmoments.github.io/FPGA-practice/2026/02/23/FPGA-Ray/FPGA%E9%AB%98%E9%80%9F%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95%E4%B8%8E%E9%AA%8C%E8%AF%81/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://cmoments.github.io/FPGA-practice/2026/02/23/FPGA-Ray/FPGA%E9%AB%98%E9%80%9F%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95%E4%B8%8E%E9%AA%8C%E8%AF%81/&title=FPGA高速接口测试与验证"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://cmoments.github.io/FPGA-practice/2026/02/23/FPGA-Ray/FPGA%E9%AB%98%E9%80%9F%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95%E4%B8%8E%E9%AA%8C%E8%AF%81/&title=FPGA高速接口测试与验证"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://cmoments.github.io/FPGA-practice/2026/02/23/FPGA-Ray/FPGA%E9%AB%98%E9%80%9F%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95%E4%B8%8E%E9%AA%8C%E8%AF%81/&title=FPGA高速接口测试与验证"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://cmoments.github.io/FPGA-practice/2026/02/23/FPGA-Ray/FPGA%E9%AB%98%E9%80%9F%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95%E4%B8%8E%E9%AA%8C%E8%AF%81/&title=FPGA高速接口测试与验证"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://cmoments.github.io/FPGA-practice/2026/02/23/FPGA-Ray/FPGA%E9%AB%98%E9%80%9F%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95%E4%B8%8E%E9%AA%8C%E8%AF%81/&name=FPGA高速接口测试与验证&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://cmoments.github.io/FPGA-practice/2026/02/23/FPGA-Ray/FPGA%E9%AB%98%E9%80%9F%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95%E4%B8%8E%E9%AA%8C%E8%AF%81/&t=FPGA高速接口测试与验证"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2025-2026
+    ML-KEM
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="#FPGA-Ray">FPGA-Ray</a></li><!--
+     --><!--
+       --><li><a href="#EDA">EDA</a></li><!--
+     --><!--
+       --><li><a href="#YSYC">YSYC</a></li><!--
+     --><!--
+       --><li><a href="../../../../../search/">Search</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="../../../../../js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+<!-- FancyBox -->
+
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
+  <script>
+    Fancybox.defaults.hideScrollbar = false;
+  </script>
+
+
+
+</body>
+</html>
