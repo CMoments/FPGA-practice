@@ -17,6 +17,19 @@
     
     
     <entry>
+      <title>嘉立创EDA基本操作</title>
+      <link href="/FPGA-practice/2026/03/03/EDA/%E5%98%89%E7%AB%8B%E5%88%9BEDA%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/"/>
+      <url>/FPGA-practice/2026/03/03/EDA/%E5%98%89%E7%AB%8B%E5%88%9BEDA%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/</url>
+      
+        <content type="html"><![CDATA[<ul><li><a href="#%E5%85%83%E4%BB%B6%E7%94%BB%E5%B8%83%E5%8E%9F%E7%82%B9%E4%B8%8D%E5%9C%A8%E5%9B%BE%E5%BD%A2%E5%86%85%E9%83%A8">元件：画布原点不在图形内部</a></li><li><a href="#%E5%B0%81%E8%A3%85%E8%AE%BE%E7%BD%AE%E5%9D%90%E6%A0%87%E5%8E%9F%E7%82%B9">封装：设置坐标原点</a></li><li><a href="#%E5%B0%81%E8%A3%85%E8%AE%BE%E7%BD%AE%E9%97%B4%E8%B7%9D">封装：设置间距</a></li></ul><h2 id="元件：画布原点不在图形内部"><a href="#元件：画布原点不在图形内部" class="headerlink" title="元件：画布原点不在图形内部"></a>元件：画布原点不在图形内部</h2><p>设置画布原点是为了给PCB板上的所有元件提供一个统一的测量基准，确保生产时贴片机能精确地将元件贴装到正确的位置。<br>嘉立创创建元件保存的时候，出现“发现某某画布原点不在图形内部”的问题可以用以下方法解决：</p><img src="image.png" alt="" style="width: 60%; height: auto; margin: 0; display: inline-block;" /><h2 id="封装：设置坐标原点"><a href="#封装：设置坐标原点" class="headerlink" title="封装：设置坐标原点"></a>封装：设置坐标原点</h2><img src="encapsulation.png" alt="" style="width: 80%; height: auto; margin: 0; display: inline-block;" /><h2 id="封装：设置间距"><a href="#封装：设置间距" class="headerlink" title="封装：设置间距"></a>封装：设置间距</h2><p><img src="image.png"><br><img src="encapsulation-1.png" alt="" style="width: 80%; height: auto; margin: 0; display: inline-block;" /></p><h1 id="十五届蓝桥杯EDA设计与开发-设计题"><a href="#十五届蓝桥杯EDA设计与开发-设计题" class="headerlink" title="十五届蓝桥杯EDA设计与开发-设计题"></a>十五届蓝桥杯EDA设计与开发-设计题</h1><div class="pdf-container"><iframe src="/FPGA-practice/js/pdfjs/web/viewer.html?file=/FPGA-practice/2026/03/03/EDA/嘉立创EDA基本操作/15P1D_EDA.pdf" width="100%" height="600px"></iframe></div>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>elec</title>
       <link href="/FPGA-practice/2026/03/01/EDA/elec/"/>
       <url>/FPGA-practice/2026/03/01/EDA/elec/</url>
