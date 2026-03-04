@@ -4,6 +4,19 @@
   
     
     <entry>
+      <title>点亮led灯</title>
+      <link href="/FPGA-practice/2026/03/04/FPGA-Ray/Basic/led/"/>
+      <url>/FPGA-practice/2026/03/04/FPGA-Ray/Basic/led/</url>
+      
+        <content type="html"><![CDATA[<p><img src="led/image.png" alt="逻辑综合，分配管脚"></p><p><img src="led/image-1.png" alt="查阅原理图，确认管脚编号"><br><img src="led/image-2.png" alt="核心板原理图"></p><p><img src="led/image-3.png" alt="分配管脚"></p><p><img src="led/image-4.png" alt="烧录"></p><video controls style="width: 100%; max-width: 960px;"><source src="led/ledd.mp4" type="video/mp4"></video>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>嘉立创EDA基本操作</title>
       <link href="/FPGA-practice/2026/03/03/EDA/%E5%98%89%E7%AB%8B%E5%88%9BEDA%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/"/>
       <url>/FPGA-practice/2026/03/03/EDA/%E5%98%89%E7%AB%8B%E5%88%9BEDA%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/</url>
@@ -44,8 +57,8 @@
     
     <entry>
       <title>AXI总线与应用</title>
-      <link href="/FPGA-practice/2026/02/24/FPGA-Ray/AXI%E6%80%BB%E7%BA%BF%E4%B8%8E%E5%BA%94%E7%94%A8/"/>
-      <url>/FPGA-practice/2026/02/24/FPGA-Ray/AXI%E6%80%BB%E7%BA%BF%E4%B8%8E%E5%BA%94%E7%94%A8/</url>
+      <link href="/FPGA-practice/2026/02/24/FPGA-Ray/Network/AXI%E6%80%BB%E7%BA%BF%E4%B8%8E%E5%BA%94%E7%94%A8/"/>
+      <url>/FPGA-practice/2026/02/24/FPGA-Ray/Network/AXI%E6%80%BB%E7%BA%BF%E4%B8%8E%E5%BA%94%E7%94%A8/</url>
       
         <content type="html"><![CDATA[<p>学习AXI总线能够加深对FPGA设计中对数据传输与控制的理解。</p><h1 id="AXI："><a href="#AXI：" class="headerlink" title="AXI："></a>AXI：</h1><p>AXI(Advanced eXtensible Interface)总线：是ARM公司提出的AMBA3.0协议中的重要组成部分，是一种高性能，高带宽，低延迟的<strong>片内总线</strong>。</p><ul><li>AXI总线已经成为高性能SoC设计、FPGA设计中采用的总线标准。</li><li>AXI总线包括：AXI4、AXI4-Lite和AXI4-Stream</li><li></li></ul><h1 id="AXI总线读操作"><a href="#AXI总线读操作" class="headerlink" title="AXI总线读操作"></a>AXI总线读操作</h1><p><img src="image-2.png"></p><h2 id="状态转换图"><a href="#状态转换图" class="headerlink" title="状态转换图"></a>状态转换图</h2><p><img src="image-5.png"></p><h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><p>读数据模块，主要采用状态机三段式进行实现，大致可以分为以下五个状态：</p><ul><li><strong>读空闲 (RD_IDLE)</strong> ：等待触发突发信号。</li><li><strong>读地址 (RD_ADDR)</strong> ：向从机写入读地址和突发信息。</li><li><strong>读数据 (RD_DATA)</strong> ：数据传递状态。</li><li><strong>读完成 (RD_LAST)</strong> ：传输最后一个数据。</li><li><strong>读停止 (RD_STOP)</strong> ：复位各自信号。</li></ul><h1 id="AXI总线写操作"><a href="#AXI总线写操作" class="headerlink" title="AXI总线写操作"></a>AXI总线写操作</h1><p><img src="image-3.png"></p><h2 id="状态转换图-1"><a href="#状态转换图-1" class="headerlink" title="状态转换图"></a>状态转换图</h2><p><img src="image-4.png"></p><h2 id="代码实现-1"><a href="#代码实现-1" class="headerlink" title="代码实现"></a>代码实现</h2><p>写数据模块，主要采用状态机☐三段式进行实现，大致可以分为以下五个状态：</p><ul><li><strong>写空闲 (WR_IDLE)</strong> ：等待触发突发信号。</li><li><strong>写地址 (WR_ADDR)</strong> ：向从机写入写地址和突发信息。</li><li><strong>写数据 (WR_DATA)</strong> ：数据传递状态。</li><li><strong>写完成 (WR_LAST)</strong> ：传输最后一个数据。</li><li><strong>写停止 (WR_STOP)</strong> ：复位各自信号。</li><li></li></ul><h1 id="设计一个简单的控制逻辑，用于通过AXI-Lite接口对RAM进行读写操作。"><a href="#设计一个简单的控制逻辑，用于通过AXI-Lite接口对RAM进行读写操作。" class="headerlink" title="设计一个简单的控制逻辑，用于通过AXI-Lite接口对RAM进行读写操作。"></a>设计一个简单的控制逻辑，用于通过AXI-Lite接口对RAM进行读写操作。</h1><h2 id="添加IP核：AXI-BRAM-Controller"><a href="#添加IP核：AXI-BRAM-Controller" class="headerlink" title="添加IP核：AXI BRAM Controller"></a>添加IP核：AXI BRAM Controller</h2><p>AXI BRAM Controller：负责将AXI总线协议转换为BRAM接口协议。它支持AXI4或AXI4-Lite接口（可配置）。<br><img src="AXI-BRAM.png"></p><h2 id="添加IP核：Block-Memory-Generator"><a href="#添加IP核：Block-Memory-Generator" class="headerlink" title="添加IP核：Block Memory Generator"></a>添加IP核：Block Memory Generator</h2><p>Block Memory Generator是AMD（原Xilinx）提供的用于生成FPGA内部块内存（BRAM）的专用IP核。<br><img src="Block-Memory-Generator.png"></p><h1 id="添加IP核：AXI-Stream-FIFO"><a href="#添加IP核：AXI-Stream-FIFO" class="headerlink" title="添加IP核：AXI-Stream FIFO"></a>添加IP核：AXI-Stream FIFO</h1><p><img src="AXI.png"></p>]]></content>
       
@@ -83,8 +96,8 @@
     
     <entry>
       <title>FPGA高速接口测试与验证</title>
-      <link href="/FPGA-practice/2026/02/23/FPGA-Ray/FPGA%E9%AB%98%E9%80%9F%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95%E4%B8%8E%E9%AA%8C%E8%AF%81/"/>
-      <url>/FPGA-practice/2026/02/23/FPGA-Ray/FPGA%E9%AB%98%E9%80%9F%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95%E4%B8%8E%E9%AA%8C%E8%AF%81/</url>
+      <link href="/FPGA-practice/2026/02/23/FPGA-Ray/Network/FPGA%E9%AB%98%E9%80%9F%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95%E4%B8%8E%E9%AA%8C%E8%AF%81/"/>
+      <url>/FPGA-practice/2026/02/23/FPGA-Ray/Network/FPGA%E9%AB%98%E9%80%9F%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95%E4%B8%8E%E9%AA%8C%E8%AF%81/</url>
       
         <content type="html"><![CDATA[<h1 id="项目创建与IP核添加"><a href="#项目创建与IP核添加" class="headerlink" title="项目创建与IP核添加"></a>项目创建与IP核添加</h1><p>在开发工具Vivado添加器件：Xlinx7 Series，选择芯片型号”xc7k325tffg900-2”,<a href="https://docs.amd.com/r/zh-CN/ug908-vivado-programming-debugging/%E4%BD%BF%E7%94%A8-Vivado-IP-%E7%9B%AE%E5%BD%95%E7%94%9F%E6%88%90-IBERT-%E6%A0%B8">并添加IBERT IP核</a>。</p><div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 15px 0;">  <img src="install.png" style="width: 100%; height: auto;">  <img src="create-project.png" style="width: 100%; height: auto;">  <img src="IBERT.png" style="width: 100%; height: auto;">  <img src="newproject-summary.png" style="width: 100%; height: auto;"></div><h2 id="尝试生成官方示例工程的比特流："><a href="#尝试生成官方示例工程的比特流：" class="headerlink" title="尝试生成官方示例工程的比特流："></a>尝试生成官方示例工程的比特流：</h2><div style="display: flex; gap: 15px 0; flex-wrap: wrap;" >  <img src="demo-analyze.png" style="width: 100%; height: auto;">  <img src="demo-bitstream.png" style="width: 100%; height: auto;"></div><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Writing bitstream ./example_ibert_7series_gtx_0.bit...</span><br><span class="line">INFO: [Vivado 12-1842] Bitgen Completed Successfully.</span><br><span class="line">INFO: [Common 17-83] Releasing license: Implementation</span><br><span class="line">124 Infos, 5 Warnings, 0 Critical Warnings and 0 Errors encountered.</span><br><span class="line">write_bitstream completed successfully</span><br><span class="line">write_bitstream: Time (s): cpu = 00:00:29 ; elapsed = 00:00:21 . Memory (MB): peak = 2817.785 ; gain = 498.496</span><br><span class="line"></span><br></pre></td></tr></table></figure><h1 id="接口连接与配置"><a href="#接口连接与配置" class="headerlink" title="接口连接与配置"></a>接口连接与配置</h1><h1 id="IBERT-IP核定制与生成"><a href="#IBERT-IP核定制与生成" class="headerlink" title="IBERT IP核定制与生成"></a>IBERT IP核定制与生成</h1>]]></content>
       
