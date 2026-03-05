@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="锁相环IP核调用 勾选lock lock 的本质 和“烤机（长时间压力测试）”的关系   实例化方式 RAM IP实例化调用    锁相环IP核调用锁相环(PLL)模块是参数化模块库中一个非常有用的基本元件，其功能主要是时钟倍频、分频、相位偏移和可编程占空比。                             在工程界面的左侧点击IP Catalog，所有的IP核调用时都是在IP Cata">
+<meta property="og:type" content="article">
+<meta property="og:title" content="🛠️ IP组件调用">
+<meta property="og:url" content="https://cmoments.github.io/FPGA-practice/2026/03/05/FPGA-Ray/Basic/IP%E7%BB%84%E4%BB%B6%E8%B0%83%E7%94%A8/index.html">
+<meta property="og:site_name" content="ML-KEM&#39;s FPGA Practice">
+<meta property="og:description" content="锁相环IP核调用 勾选lock lock 的本质 和“烤机（长时间压力测试）”的关系   实例化方式 RAM IP实例化调用    锁相环IP核调用锁相环(PLL)模块是参数化模块库中一个非常有用的基本元件，其功能主要是时钟倍频、分频、相位偏移和可编程占空比。                             在工程界面的左侧点击IP Catalog，所有的IP核调用时都是在IP Cata">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cmoments.github.io/FPGA-practice/2026/03/05/FPGA-Ray/Basic/IP%E7%BB%84%E4%BB%B6%E8%B0%83%E7%94%A8/IP%E7%BB%84%E4%BB%B6%E8%B0%83%E7%94%A8/image.png">
+<meta property="og:image" content="https://cmoments.github.io/FPGA-practice/2026/03/05/FPGA-Ray/Basic/IP%E7%BB%84%E4%BB%B6%E8%B0%83%E7%94%A8/IP%E7%BB%84%E4%BB%B6%E8%B0%83%E7%94%A8/image-1.png">
+<meta property="og:image" content="https://cmoments.github.io/FPGA-practice/2026/03/05/FPGA-Ray/Basic/IP%E7%BB%84%E4%BB%B6%E8%B0%83%E7%94%A8/IP%E7%BB%84%E4%BB%B6%E8%B0%83%E7%94%A8/image-2.png">
+<meta property="og:image" content="https://cmoments.github.io/FPGA-practice/2026/03/05/FPGA-Ray/Basic/IP%E7%BB%84%E4%BB%B6%E8%B0%83%E7%94%A8/IP%E7%BB%84%E4%BB%B6%E8%B0%83%E7%94%A8/image-3.png">
+<meta property="og:image" content="https://cmoments.github.io/FPGA-practice/2026/03/05/FPGA-Ray/Basic/IP%E7%BB%84%E4%BB%B6%E8%B0%83%E7%94%A8/IP%E7%BB%84%E4%BB%B6%E8%B0%83%E7%94%A8/image-4.png">
+<meta property="og:image" content="https://cmoments.github.io/FPGA-practice/2026/03/05/FPGA-Ray/Basic/IP%E7%BB%84%E4%BB%B6%E8%B0%83%E7%94%A8/IP%E7%BB%84%E4%BB%B6%E8%B0%83%E7%94%A8/image-5.png">
+<meta property="og:image" content="https://cmoments.github.io/FPGA-practice/2026/03/05/FPGA-Ray/Basic/IP%E7%BB%84%E4%BB%B6%E8%B0%83%E7%94%A8/IP%E7%BB%84%E4%BB%B6%E8%B0%83%E7%94%A8/image-6.png">
+<meta property="og:image" content="https://cmoments.github.io/FPGA-practice/2026/03/05/FPGA-Ray/Basic/IP%E7%BB%84%E4%BB%B6%E8%B0%83%E7%94%A8/IP%E7%BB%84%E4%BB%B6%E8%B0%83%E7%94%A8/image-7.png">
+<meta property="og:image" content="https://cmoments.github.io/FPGA-practice/2026/03/05/FPGA-Ray/Basic/IP%E7%BB%84%E4%BB%B6%E8%B0%83%E7%94%A8/IP%E7%BB%84%E4%BB%B6%E8%B0%83%E7%94%A8/image-8.png">
+<meta property="article:published_time" content="2026-03-05T07:43:44.000Z">
+<meta property="article:modified_time" content="2026-03-05T08:10:48.900Z">
+<meta property="article:author" content="ML-KEM">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cmoments.github.io/FPGA-practice/2026/03/05/FPGA-Ray/Basic/IP%E7%BB%84%E4%BB%B6%E8%B0%83%E7%94%A8/IP%E7%BB%84%E4%BB%B6%E8%B0%83%E7%94%A8/image.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="../../../../../../images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="../../../../../../images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="../../../../../../images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>🛠️ IP组件调用</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="../../../../../../css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css" />
+  
+
+
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="#FPGA-Ray">FPGA-Ray</a></li><!--
+     --><!--
+       --><li><a href="#EDA">EDA</a></li><!--
+     --><!--
+       --><li><a href="#OSOC">OSOC</a></li><!--
+     --><!--
+       --><li><a href="../../../../../../search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="../%E5%88%86%E9%A2%91%E5%99%A8%E5%AE%9E%E7%8E%B0/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://cmoments.github.io/FPGA-practice/2026/03/05/FPGA-Ray/Basic/IP%E7%BB%84%E4%BB%B6%E8%B0%83%E7%94%A8/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://cmoments.github.io/FPGA-practice/2026/03/05/FPGA-Ray/Basic/IP%E7%BB%84%E4%BB%B6%E8%B0%83%E7%94%A8/&text=🛠️ IP组件调用"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://cmoments.github.io/FPGA-practice/2026/03/05/FPGA-Ray/Basic/IP%E7%BB%84%E4%BB%B6%E8%B0%83%E7%94%A8/&title=🛠️ IP组件调用"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://cmoments.github.io/FPGA-practice/2026/03/05/FPGA-Ray/Basic/IP%E7%BB%84%E4%BB%B6%E8%B0%83%E7%94%A8/&is_video=false&description=🛠️ IP组件调用"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=🛠️ IP组件调用&body=Check out this article: https://cmoments.github.io/FPGA-practice/2026/03/05/FPGA-Ray/Basic/IP%E7%BB%84%E4%BB%B6%E8%B0%83%E7%94%A8/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://cmoments.github.io/FPGA-practice/2026/03/05/FPGA-Ray/Basic/IP%E7%BB%84%E4%BB%B6%E8%B0%83%E7%94%A8/&title=🛠️ IP组件调用"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://cmoments.github.io/FPGA-practice/2026/03/05/FPGA-Ray/Basic/IP%E7%BB%84%E4%BB%B6%E8%B0%83%E7%94%A8/&title=🛠️ IP组件调用"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://cmoments.github.io/FPGA-practice/2026/03/05/FPGA-Ray/Basic/IP%E7%BB%84%E4%BB%B6%E8%B0%83%E7%94%A8/&title=🛠️ IP组件调用"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://cmoments.github.io/FPGA-practice/2026/03/05/FPGA-Ray/Basic/IP%E7%BB%84%E4%BB%B6%E8%B0%83%E7%94%A8/&title=🛠️ IP组件调用"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://cmoments.github.io/FPGA-practice/2026/03/05/FPGA-Ray/Basic/IP%E7%BB%84%E4%BB%B6%E8%B0%83%E7%94%A8/&name=🛠️ IP组件调用&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://cmoments.github.io/FPGA-practice/2026/03/05/FPGA-Ray/Basic/IP%E7%BB%84%E4%BB%B6%E8%B0%83%E7%94%A8/&t=🛠️ IP组件调用"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%94%81%E7%9B%B8%E7%8E%AFIP%E6%A0%B8%E8%B0%83%E7%94%A8"><span class="toc-number">1.</span> <span class="toc-text">锁相环IP核调用</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8B%BE%E9%80%89lock"><span class="toc-number">2.</span> <span class="toc-text">勾选lock</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#lock-%E7%9A%84%E6%9C%AC%E8%B4%A8"><span class="toc-number">2.1.</span> <span class="toc-text">lock 的本质</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%92%8C%E2%80%9C%E7%83%A4%E6%9C%BA%EF%BC%88%E9%95%BF%E6%97%B6%E9%97%B4%E5%8E%8B%E5%8A%9B%E6%B5%8B%E8%AF%95%EF%BC%89%E2%80%9D%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="toc-number">2.2.</span> <span class="toc-text">和“烤机（长时间压力测试）”的关系</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B%E5%8C%96%E6%96%B9%E5%BC%8F"><span class="toc-number">3.</span> <span class="toc-text">实例化方式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#RAM-IP%E5%AE%9E%E4%BE%8B%E5%8C%96%E8%B0%83%E7%94%A8"><span class="toc-number">3.1.</span> <span class="toc-text">RAM IP实例化调用</span></a></li></ol></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        🛠️ IP组件调用
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">ML-KEM</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2026-03-05T07:43:44.000Z" class="dt-published" itemprop="datePublished">2026-03-05</time>
+        
+      
+    </div>
+
+
+      
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <ul>
+<li><a href="#%E9%94%81%E7%9B%B8%E7%8E%AFip%E6%A0%B8%E8%B0%83%E7%94%A8">锁相环IP核调用</a></li>
+<li><a href="#%E5%8B%BE%E9%80%89lock">勾选<code>lock</code></a><ul>
+<li><a href="#lock-%E7%9A%84%E6%9C%AC%E8%B4%A8"><code>lock</code> 的本质</a></li>
+<li><a href="#%E5%92%8C%E7%83%A4%E6%9C%BA%E9%95%BF%E6%97%B6%E9%97%B4%E5%8E%8B%E5%8A%9B%E6%B5%8B%E8%AF%95%E7%9A%84%E5%85%B3%E7%B3%BB">和“烤机（长时间压力测试）”的关系</a></li>
+</ul>
+</li>
+<li><a href="#%E5%AE%9E%E4%BE%8B%E5%8C%96%E6%96%B9%E5%BC%8F">实例化方式</a><ul>
+<li><a href="#ram-ip%E5%AE%9E%E4%BE%8B%E5%8C%96%E8%B0%83%E7%94%A8">RAM IP实例化调用</a></li>
+</ul>
+</li>
+</ul>
+<h1 id="锁相环IP核调用"><a href="#锁相环IP核调用" class="headerlink" title="锁相环IP核调用"></a>锁相环IP核调用</h1><p><strong>锁相环(PLL)模块</strong>是参数化模块库中一个非常有用的基本元件，其功能主要是时钟倍频、分频、相位偏移和可编程占空比。</p>
+<p><a data-fancybox="gallery" data-src="image.png" data-caption="PLL是一种反馈控制电路"><img src="image.png" alt="PLL是一种反馈控制电路"></a></p>
+<table width="100%" border="0" cellspacing="0" cellpadding="8">
+    <tr>
+        <td width="50%" valign="top">
+            在工程界面的左侧点击IP Catalog，所有的IP核调用时都是在IP Catalog选项搜索，点击IP Catalog选项在软件右侧会出现IP Catalog的搜索框，可以搜索到想要的IP核的名称。
+        </td>
+        <td width="50%" valign="top">
+            <a data-fancybox="gallery" data-src="image-1.png" data-caption=""><img src="image-1.png" style="max-height: 220px; width: auto;" alt="" /></a>
+        </td>
+    </tr>
+</table>
+<table width="100%" border="0" cellspacing="0" cellpadding="8">
+    <tr>
+        <td width="50%" valign="top">
+            在搜索框中输入clock，底下会出现很多IP的选项，找到Clocking Wizard,这个就是下面需要被调用的锁相环IP核，双击Clocking Wizard，等待软件会自动弹出锁相环的各个参数设置界面。
+        </td>
+        <td width="50%" valign="top">
+            <a data-fancybox="gallery" data-src="image-2.png" data-caption=""><img src="image-2.png" alt="" /></a>
+        </td>
+    </tr>
+</table>
+<table width="100%" border="0" cellspacing="0" cellpadding="8">
+    <tr>
+        <td width="50%" valign="top">
+            ①：IP核官方的手册文档可以在这里下载查看，官方文档一般都是最全面的技术文档。<br>
+            ②：IP核的命名名称，输入自己给IP核定义的名称，后面在代码中调用的就是这个给名字<br>
+            ③④⑤：这三个选项默认不用修改。<br>
+            ⑥：输入外部给锁相环输入的外部时钟频率。
+        </td>
+        <td width="50%" valign="top">
+            <a data-fancybox="gallery" data-src="image-3.png" data-caption=""><img src="image-3.png" alt="" /></a>
+        </td>
+    </tr>
+</table>
+<table width="100%" border="0" cellspacing="0" cellpadding="8">
+    <tr>
+        <td width="50%" valign="top">
+            ①：选中输出时钟的选项，可以选择输出一路时钟或者两路频率不一样的时钟或者三路时钟。<br>
+            ②：设置输出时钟的频率，可以输出100MHZ，50MHZ，时钟频率可以自己设置频率大小<br>
+            ③：设置输入复位信号，复位信号可以设置高复位或者低复位有效，设置输出locked信号，当locked信号拉高时代表锁相环可以稳定的输出时钟信号，达到稳定状态。
+        </td>
+        <td width="50%" valign="top">
+            <a data-fancybox="gallery" data-src="image-4.png" data-caption=""><img src="image-4.png" alt="" /></a>
+        </td>
+    </tr>
+</table>
+
+<p>设置输出频率和理论频率和相位还有占空比，锁相环会显示实际输出的频率，相位和占空比,在输入时钟和输出时钟两个差距比较大时会显示出差异。<br><a data-fancybox="gallery" data-src="image-5.png" data-caption=""><img src="image-5.png"></a></p>
+<table width="100%" border="0" cellspacing="0" cellpadding="8">
+    <tr>
+        <td width="50%" valign="top">
+            设置locked信号的名字，此选项一般选择默认不修改，Locked信号是用来观察pll输出时钟是否和输入时钟锁定。当锁定时，这个Locked信号就变为高电平。锁相环此时输出的时钟进入稳定状态。
+        </td>
+        <td width="50%" valign="top">
+            <a data-fancybox="gallery" data-src="image-6.png" data-caption=""><img src="image-6.png" alt="" /></a>
+        </td>
+    </tr>
+</table>
+
+
+
+<h1 id="勾选lock"><a href="#勾选lock" class="headerlink" title="勾选lock"></a>勾选<code>lock</code></h1><p>在新建 PLL（锁相环）IP 核时，<code>lock</code> 信号勾选很重要，核心原因是：它是“时钟是否稳定可用”的官方指示。</p>
+<h3 id="lock-的本质"><a href="#lock-的本质" class="headerlink" title="lock 的本质"></a><code>lock</code> 的本质</h3><p><code>lock=1</code> 表示 PLL 输出频率和相位已经进入稳定锁定状态。<br><code>lock=0</code> 时，输出时钟可能还在漂、抖动大、频率不准，逻辑在这个阶段启动很容易出错。很多人只连了 <code>clk_out</code>，没用 <code>lock</code> 去控制系统复位&#x2F;使能，结果上电偶发异常。</p>
+<h3 id="和“烤机（长时间压力测试）”的关系"><a href="#和“烤机（长时间压力测试）”的关系" class="headerlink" title="和“烤机（长时间压力测试）”的关系"></a>和“烤机（长时间压力测试）”的关系</h3><p>烤机时温度、电压、负载都在变化，PLL 更容易出现边界状态：  </p>
+<ul>
+<li>上电&#x2F;重启瞬间锁定变慢  </li>
+<li>温漂导致短暂失锁再重锁  </li>
+<li>某些板卡在高温下锁定时间显著变长<br>如果没有用 <code>lock</code> 做保护，烤机时就可能出现“平时没事，跑久了偶发死机&#x2F;数据错乱&#x2F;通信异常”的玄学问题。</li>
+</ul>
+<h1 id="实例化方式"><a href="#实例化方式" class="headerlink" title="实例化方式"></a>实例化方式</h1><h3 id="RAM-IP实例化调用"><a href="#RAM-IP实例化调用" class="headerlink" title="RAM IP实例化调用"></a>RAM IP实例化调用</h3><table width="100%" border="0" cellspacing="0" cellpadding="8">
+    <tr>
+        <td width="50%" valign="top">
+            在IP Sources界面找到blk_mem_gen.veo文件，文件中是IP的例化模板。我们只需要将文件中内容复制粘贴到我们verilog程序中,对IP进行实例化。
+            <br><br>
+            <a data-fancybox="gallery" data-src="image-7.png" data-caption="blk_mem_gen.veo例化模板"><img src="image-7.png" alt="blk_mem_gen.veo例化模板" /></a>
+        </td>
+        <td width="50%" valign="top">
+            <a data-fancybox="gallery" data-src="image-8.png" data-caption="RAM IP实例化示意图"><img src="image-8.png" alt="RAM IP实例化示意图" /></a>
+        </td>
+    </tr>
+</table>
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="#FPGA-Ray">FPGA-Ray</a></li>
+        
+          <li><a href="#EDA">EDA</a></li>
+        
+          <li><a href="#OSOC">OSOC</a></li>
+        
+          <li><a href="../../../../../../search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%94%81%E7%9B%B8%E7%8E%AFIP%E6%A0%B8%E8%B0%83%E7%94%A8"><span class="toc-number">1.</span> <span class="toc-text">锁相环IP核调用</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8B%BE%E9%80%89lock"><span class="toc-number">2.</span> <span class="toc-text">勾选lock</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#lock-%E7%9A%84%E6%9C%AC%E8%B4%A8"><span class="toc-number">2.1.</span> <span class="toc-text">lock 的本质</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%92%8C%E2%80%9C%E7%83%A4%E6%9C%BA%EF%BC%88%E9%95%BF%E6%97%B6%E9%97%B4%E5%8E%8B%E5%8A%9B%E6%B5%8B%E8%AF%95%EF%BC%89%E2%80%9D%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="toc-number">2.2.</span> <span class="toc-text">和“烤机（长时间压力测试）”的关系</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B%E5%8C%96%E6%96%B9%E5%BC%8F"><span class="toc-number">3.</span> <span class="toc-text">实例化方式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#RAM-IP%E5%AE%9E%E4%BE%8B%E5%8C%96%E8%B0%83%E7%94%A8"><span class="toc-number">3.1.</span> <span class="toc-text">RAM IP实例化调用</span></a></li></ol></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://cmoments.github.io/FPGA-practice/2026/03/05/FPGA-Ray/Basic/IP%E7%BB%84%E4%BB%B6%E8%B0%83%E7%94%A8/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://cmoments.github.io/FPGA-practice/2026/03/05/FPGA-Ray/Basic/IP%E7%BB%84%E4%BB%B6%E8%B0%83%E7%94%A8/&text=🛠️ IP组件调用"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://cmoments.github.io/FPGA-practice/2026/03/05/FPGA-Ray/Basic/IP%E7%BB%84%E4%BB%B6%E8%B0%83%E7%94%A8/&title=🛠️ IP组件调用"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://cmoments.github.io/FPGA-practice/2026/03/05/FPGA-Ray/Basic/IP%E7%BB%84%E4%BB%B6%E8%B0%83%E7%94%A8/&is_video=false&description=🛠️ IP组件调用"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=🛠️ IP组件调用&body=Check out this article: https://cmoments.github.io/FPGA-practice/2026/03/05/FPGA-Ray/Basic/IP%E7%BB%84%E4%BB%B6%E8%B0%83%E7%94%A8/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://cmoments.github.io/FPGA-practice/2026/03/05/FPGA-Ray/Basic/IP%E7%BB%84%E4%BB%B6%E8%B0%83%E7%94%A8/&title=🛠️ IP组件调用"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://cmoments.github.io/FPGA-practice/2026/03/05/FPGA-Ray/Basic/IP%E7%BB%84%E4%BB%B6%E8%B0%83%E7%94%A8/&title=🛠️ IP组件调用"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://cmoments.github.io/FPGA-practice/2026/03/05/FPGA-Ray/Basic/IP%E7%BB%84%E4%BB%B6%E8%B0%83%E7%94%A8/&title=🛠️ IP组件调用"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://cmoments.github.io/FPGA-practice/2026/03/05/FPGA-Ray/Basic/IP%E7%BB%84%E4%BB%B6%E8%B0%83%E7%94%A8/&title=🛠️ IP组件调用"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://cmoments.github.io/FPGA-practice/2026/03/05/FPGA-Ray/Basic/IP%E7%BB%84%E4%BB%B6%E8%B0%83%E7%94%A8/&name=🛠️ IP组件调用&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://cmoments.github.io/FPGA-practice/2026/03/05/FPGA-Ray/Basic/IP%E7%BB%84%E4%BB%B6%E8%B0%83%E7%94%A8/&t=🛠️ IP组件调用"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2025-2026
+    ML-KEM
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="#FPGA-Ray">FPGA-Ray</a></li><!--
+     --><!--
+       --><li><a href="#EDA">EDA</a></li><!--
+     --><!--
+       --><li><a href="#OSOC">OSOC</a></li><!--
+     --><!--
+       --><li><a href="../../../../../../search/">Search</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="../../../../../../js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+<!-- FancyBox -->
+
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
+  <script>
+    Fancybox.defaults.hideScrollbar = false;
+  </script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="跨时钟域问题 跨时钟域的实现方式 单bit跨时钟域传输： 多比特跨时钟域的方式 异步FIFO 使用FIFO        跨时钟域问题在实现PS&#x2F;2接口的练习中会看到示例代码有如下处理： 12345always @(posedge clk) begin  ps2_clk_sync &lt;&#x3D;  &#123;ps2_clk_sync[1:0],ps2_clk&#125;;endwire">
+<meta property="og:type" content="article">
+<meta property="og:title" content="⏱️ 跨时钟域问题">
+<meta property="og:url" content="https://cmoments.github.io/FPGA-practice/2026/03/05/FPGA-Ray/Basic/%E8%B7%A8%E6%97%B6%E9%92%9F%E5%9F%9F%E9%97%AE%E9%A2%98/index.html">
+<meta property="og:site_name" content="ML-KEM&#39;s FPGA Practice">
+<meta property="og:description" content="跨时钟域问题 跨时钟域的实现方式 单bit跨时钟域传输： 多比特跨时钟域的方式 异步FIFO 使用FIFO        跨时钟域问题在实现PS&#x2F;2接口的练习中会看到示例代码有如下处理： 12345always @(posedge clk) begin  ps2_clk_sync &lt;&#x3D;  &#123;ps2_clk_sync[1:0],ps2_clk&#125;;endwire">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cmoments.github.io/FPGA-practice/2026/03/05/FPGA-Ray/Basic/%E8%B7%A8%E6%97%B6%E9%92%9F%E5%9F%9F%E9%97%AE%E9%A2%98/%E8%B7%A8%E6%97%B6%E9%92%9F%E5%9F%9F%E9%97%AE%E9%A2%98/image.png">
+<meta property="og:image" content="https://cmoments.github.io/FPGA-practice/2026/03/05/FPGA-Ray/Basic/%E8%B7%A8%E6%97%B6%E9%92%9F%E5%9F%9F%E9%97%AE%E9%A2%98/%E8%B7%A8%E6%97%B6%E9%92%9F%E5%9F%9F%E9%97%AE%E9%A2%98/image-1.png">
+<meta property="og:image" content="https://cmoments.github.io/FPGA-practice/2026/03/05/FPGA-Ray/Basic/%E8%B7%A8%E6%97%B6%E9%92%9F%E5%9F%9F%E9%97%AE%E9%A2%98/%E8%B7%A8%E6%97%B6%E9%92%9F%E5%9F%9F%E9%97%AE%E9%A2%98/image-2.png">
+<meta property="og:image" content="https://cmoments.github.io/FPGA-practice/2026/03/05/FPGA-Ray/Basic/%E8%B7%A8%E6%97%B6%E9%92%9F%E5%9F%9F%E9%97%AE%E9%A2%98/%E8%B7%A8%E6%97%B6%E9%92%9F%E5%9F%9F%E9%97%AE%E9%A2%98/image-3.png">
+<meta property="og:image" content="https://cmoments.github.io/FPGA-practice/2026/03/05/FPGA-Ray/Basic/%E8%B7%A8%E6%97%B6%E9%92%9F%E5%9F%9F%E9%97%AE%E9%A2%98/%E8%B7%A8%E6%97%B6%E9%92%9F%E5%9F%9F%E9%97%AE%E9%A2%98/image-4.png">
+<meta property="og:image" content="https://cmoments.github.io/FPGA-practice/2026/03/05/FPGA-Ray/Basic/%E8%B7%A8%E6%97%B6%E9%92%9F%E5%9F%9F%E9%97%AE%E9%A2%98/%E8%B7%A8%E6%97%B6%E9%92%9F%E5%9F%9F%E9%97%AE%E9%A2%98/image-5.png">
+<meta property="og:image" content="https://cmoments.github.io/FPGA-practice/2026/03/05/FPGA-Ray/Basic/%E8%B7%A8%E6%97%B6%E9%92%9F%E5%9F%9F%E9%97%AE%E9%A2%98/%E8%B7%A8%E6%97%B6%E9%92%9F%E5%9F%9F%E9%97%AE%E9%A2%98/image-6.png">
+<meta property="og:image" content="https://cmoments.github.io/FPGA-practice/2026/03/05/FPGA-Ray/Basic/%E8%B7%A8%E6%97%B6%E9%92%9F%E5%9F%9F%E9%97%AE%E9%A2%98/%E8%B7%A8%E6%97%B6%E9%92%9F%E5%9F%9F%E9%97%AE%E9%A2%98/image-7.png">
+<meta property="og:image" content="https://cmoments.github.io/FPGA-practice/2026/03/05/FPGA-Ray/Basic/%E8%B7%A8%E6%97%B6%E9%92%9F%E5%9F%9F%E9%97%AE%E9%A2%98/%E8%B7%A8%E6%97%B6%E9%92%9F%E5%9F%9F%E9%97%AE%E9%A2%98/image-8.png">
+<meta property="article:published_time" content="2026-03-05T02:57:25.000Z">
+<meta property="article:modified_time" content="2026-03-05T08:00:30.034Z">
+<meta property="article:author" content="ML-KEM">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cmoments.github.io/FPGA-practice/2026/03/05/FPGA-Ray/Basic/%E8%B7%A8%E6%97%B6%E9%92%9F%E5%9F%9F%E9%97%AE%E9%A2%98/%E8%B7%A8%E6%97%B6%E9%92%9F%E5%9F%9F%E9%97%AE%E9%A2%98/image.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="../../../../../../images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="../../../../../../images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="../../../../../../images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>⏱️ 跨时钟域问题</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="../../../../../../css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css" />
+  
+
+
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="#FPGA-Ray">FPGA-Ray</a></li><!--
+     --><!--
+       --><li><a href="#EDA">EDA</a></li><!--
+     --><!--
+       --><li><a href="#OSOC">OSOC</a></li><!--
+     --><!--
+       --><li><a href="../../../../../../search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="../%E5%91%BC%E5%90%B8%E7%81%AF%E5%AE%9E%E7%8E%B0/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="../../../../04/FPGA-Ray/Basic/%E6%B5%81%E6%B0%B4%E7%81%AF%E5%AE%9E%E7%8E%B0/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://cmoments.github.io/FPGA-practice/2026/03/05/FPGA-Ray/Basic/%E8%B7%A8%E6%97%B6%E9%92%9F%E5%9F%9F%E9%97%AE%E9%A2%98/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://cmoments.github.io/FPGA-practice/2026/03/05/FPGA-Ray/Basic/%E8%B7%A8%E6%97%B6%E9%92%9F%E5%9F%9F%E9%97%AE%E9%A2%98/&text=⏱️ 跨时钟域问题"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://cmoments.github.io/FPGA-practice/2026/03/05/FPGA-Ray/Basic/%E8%B7%A8%E6%97%B6%E9%92%9F%E5%9F%9F%E9%97%AE%E9%A2%98/&title=⏱️ 跨时钟域问题"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://cmoments.github.io/FPGA-practice/2026/03/05/FPGA-Ray/Basic/%E8%B7%A8%E6%97%B6%E9%92%9F%E5%9F%9F%E9%97%AE%E9%A2%98/&is_video=false&description=⏱️ 跨时钟域问题"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=⏱️ 跨时钟域问题&body=Check out this article: https://cmoments.github.io/FPGA-practice/2026/03/05/FPGA-Ray/Basic/%E8%B7%A8%E6%97%B6%E9%92%9F%E5%9F%9F%E9%97%AE%E9%A2%98/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://cmoments.github.io/FPGA-practice/2026/03/05/FPGA-Ray/Basic/%E8%B7%A8%E6%97%B6%E9%92%9F%E5%9F%9F%E9%97%AE%E9%A2%98/&title=⏱️ 跨时钟域问题"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://cmoments.github.io/FPGA-practice/2026/03/05/FPGA-Ray/Basic/%E8%B7%A8%E6%97%B6%E9%92%9F%E5%9F%9F%E9%97%AE%E9%A2%98/&title=⏱️ 跨时钟域问题"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://cmoments.github.io/FPGA-practice/2026/03/05/FPGA-Ray/Basic/%E8%B7%A8%E6%97%B6%E9%92%9F%E5%9F%9F%E9%97%AE%E9%A2%98/&title=⏱️ 跨时钟域问题"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://cmoments.github.io/FPGA-practice/2026/03/05/FPGA-Ray/Basic/%E8%B7%A8%E6%97%B6%E9%92%9F%E5%9F%9F%E9%97%AE%E9%A2%98/&title=⏱️ 跨时钟域问题"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://cmoments.github.io/FPGA-practice/2026/03/05/FPGA-Ray/Basic/%E8%B7%A8%E6%97%B6%E9%92%9F%E5%9F%9F%E9%97%AE%E9%A2%98/&name=⏱️ 跨时钟域问题&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://cmoments.github.io/FPGA-practice/2026/03/05/FPGA-Ray/Basic/%E8%B7%A8%E6%97%B6%E9%92%9F%E5%9F%9F%E9%97%AE%E9%A2%98/&t=⏱️ 跨时钟域问题"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%B7%A8%E6%97%B6%E9%92%9F%E5%9F%9F%E9%97%AE%E9%A2%98"><span class="toc-number">1.</span> <span class="toc-text">跨时钟域问题</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%B7%A8%E6%97%B6%E9%92%9F%E5%9F%9F%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F"><span class="toc-number">2.</span> <span class="toc-text">跨时钟域的实现方式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%95bit%E8%B7%A8%E6%97%B6%E9%92%9F%E5%9F%9F%E4%BC%A0%E8%BE%93%EF%BC%9A"><span class="toc-number">2.1.</span> <span class="toc-text">单bit跨时钟域传输：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E6%AF%94%E7%89%B9%E8%B7%A8%E6%97%B6%E9%92%9F%E5%9F%9F%E7%9A%84%E6%96%B9%E5%BC%8F"><span class="toc-number">2.2.</span> <span class="toc-text">多比特跨时钟域的方式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BC%82%E6%AD%A5FIFO"><span class="toc-number">2.2.1.</span> <span class="toc-text">异步FIFO</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8FIFO"><span class="toc-number">2.2.1.1.</span> <span class="toc-text">使用FIFO</span></a></li></ol></li></ol></li></ol></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        ⏱️ 跨时钟域问题
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">ML-KEM</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2026-03-05T02:57:25.000Z" class="dt-published" itemprop="datePublished">2026-03-05</time>
+        
+      
+    </div>
+
+
+      
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <ul>
+<li><a href="#%E8%B7%A8%E6%97%B6%E9%92%9F%E5%9F%9F%E9%97%AE%E9%A2%98">跨时钟域问题</a></li>
+<li><a href="#%E8%B7%A8%E6%97%B6%E9%92%9F%E5%9F%9F%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F">跨时钟域的实现方式</a><ul>
+<li><a href="#%E5%8D%95bit%E8%B7%A8%E6%97%B6%E9%92%9F%E5%9F%9F%E4%BC%A0%E8%BE%93">单bit跨时钟域传输：</a></li>
+<li><a href="#%E5%A4%9A%E6%AF%94%E7%89%B9%E8%B7%A8%E6%97%B6%E9%92%9F%E5%9F%9F%E7%9A%84%E6%96%B9%E5%BC%8F">多比特跨时钟域的方式</a><ul>
+<li><a href="#%E5%BC%82%E6%AD%A5fifo">异步FIFO</a><ul>
+<li><a href="#%E4%BD%BF%E7%94%A8fifo">使用FIFO</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="跨时钟域问题"><a href="#跨时钟域问题" class="headerlink" title="跨时钟域问题"></a>跨时钟域问题</h1><p>在实现<a target="_blank" rel="noopener" href="https://nju-projectn.github.io/dlco-lecture-note/exp/07.html">PS&#x2F;2接口的练习</a>中会看到示例代码有如下处理：</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">always</span> @(<span class="keyword">posedge</span> clk) <span class="keyword">begin</span></span><br><span class="line">  ps2_clk_sync &lt;=  &#123;ps2_clk_sync[<span class="number">1</span>:<span class="number">0</span>],ps2_clk&#125;;</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">wire</span> sampling = ps2_clk_sync[<span class="number">2</span>] &amp; ~ps2_clk_sync[<span class="number">1</span>];</span><br></pre></td></tr></table></figure>
+
+<p><a data-fancybox="gallery" data-src="image.png" data-caption="键盘访真波形"><img src="image.png" alt="键盘访真波形"></a><br>从图中可以看到：clk是一个快时钟，而ps2_clk是一个慢时钟。<br>我们知道边沿有效意味着电路会在时钟的有效沿对信号进行采样，但有效沿不是瞬时的，中间有短暂的不稳定态。<br>如何避免采样到不稳定态？这是一个典型的跨时钟域问题。</p>
+<p><strong>只要FPGA设计中的所有资源不全属于一个时钟域，就可能存在跨时钟域问题。发送跨时钟域问题的必要条件是不同时钟域之间存在信息交互。</strong></p>
+<h1 id="跨时钟域的实现方式"><a href="#跨时钟域的实现方式" class="headerlink" title="跨时钟域的实现方式"></a>跨时钟域的实现方式</h1><h3 id="单bit跨时钟域传输："><a href="#单bit跨时钟域传输：" class="headerlink" title="单bit跨时钟域传输："></a>单bit跨时钟域传输：</h3><p>快时钟域的信号总会采集到慢时钟域传输来的信号，如果存在异步可能会导致采样数据出错，所以需要进行同步处理。</p>
+<p>最常用的同步方法是双级触发器缓存法，俗称延迟打拍法。异步信号从一个时钟域进入另一个时钟域之前，将该信号用两级触发器连续缓存两次，可有效降低因为时序不满足而导致的亚稳态问题。电路示意图如下：</p>
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 15px 0;">
+  <a data-fancybox="gallery" data-src="image-1.png" data-caption=""><img src="image-1.png" style="width: 100%; height: auto;"></a>
+  <a data-fancybox="gallery" data-src="image-2.png" data-caption=""><img src="image-2.png" style="width: 100%; height: auto;"></a>
+</div>
+
+<h3 id="多比特跨时钟域的方式"><a href="#多比特跨时钟域的方式" class="headerlink" title="多比特跨时钟域的方式"></a>多比特跨时钟域的方式</h3><h4 id="异步FIFO"><a href="#异步FIFO" class="headerlink" title="异步FIFO"></a>异步FIFO</h4><p>异步FIFO主要由五部分组成：RAM、写控制端、读控制端、两个时钟同步端<br><a data-fancybox="gallery" data-src="image-3.png" data-caption="异步FIFO"><img src="image-3.png" alt="异步FIFO"></a></p>
+<ul>
+<li>1.双端口RAM：此处为伪双端口RAM进行数据存储与读出，有两组数据线、地址线、时钟线。</li>
+<li>2.写控制端：写指针与满信号产生器，用于判断是否可以写入数据，写操作时，写使能有效且FIFO未满。</li>
+<li>3.读控制端：读指针与空信号产生器，用于判断是否可以读取数据，读操作时，读使能有效且FIFO未空。</li>
+<li>4.两个时钟同步端：读指针同步到写指针域进行“写满”判断，写指针同步到读指针域进行“读空”判断。</li>
+</ul>
+<p><a data-fancybox="gallery" data-src="image-4.png" data-caption="创建IP核"><img src="image-4.png" alt="创建IP核"></a></p>
+<p>在Basic界面选择Independent Clocks Block RAM，代表的是异步时钟的FIFO，其他的选项都默认不修改。<br><a data-fancybox="gallery" data-src="image-5.png" data-caption="异步时钟FIFO"><img src="image-5.png" alt="异步时钟FIFO"></a></p>
+<p><a data-fancybox="gallery" data-src="image-6.png" data-caption="Native Ports"><img src="image-6.png" alt="Native Ports"></a><br>设置下一个页面Native Ports ,此页面可以设置读写位宽和深度，这里的①处选择第一个标准FIFO<br>第②处设置写位宽为8，写深度为1024，读位宽是8，读的深度是1024，③处是设置复位信号，这部分取消勾选，其他选项默认不勾选。</p>
+<h5 id="使用FIFO"><a href="#使用FIFO" class="headerlink" title="使用FIFO"></a>使用FIFO</h5><p>找到IP核之后，点击lnstantiation Template左边的小三角符号，可以看到veo文件，这个veo文件就是调用IP核时需要的代码，下图时veo文件的代码，直接将该代码粘贴到自己的代码中就可以实现IP核的调用。</p>
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 15px 0;">
+  <a data-fancybox="gallery" data-src="image-7.png" data-caption=""><img src="image-7.png" style="width: 100%; height: auto;"></a>
+  <a data-fancybox="gallery" data-src="image-8.png" data-caption=""><img src="image-8.png" style="width: 100%; height: auto;"></a>
+</div>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="#FPGA-Ray">FPGA-Ray</a></li>
+        
+          <li><a href="#EDA">EDA</a></li>
+        
+          <li><a href="#OSOC">OSOC</a></li>
+        
+          <li><a href="../../../../../../search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%B7%A8%E6%97%B6%E9%92%9F%E5%9F%9F%E9%97%AE%E9%A2%98"><span class="toc-number">1.</span> <span class="toc-text">跨时钟域问题</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%B7%A8%E6%97%B6%E9%92%9F%E5%9F%9F%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F"><span class="toc-number">2.</span> <span class="toc-text">跨时钟域的实现方式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%95bit%E8%B7%A8%E6%97%B6%E9%92%9F%E5%9F%9F%E4%BC%A0%E8%BE%93%EF%BC%9A"><span class="toc-number">2.1.</span> <span class="toc-text">单bit跨时钟域传输：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E6%AF%94%E7%89%B9%E8%B7%A8%E6%97%B6%E9%92%9F%E5%9F%9F%E7%9A%84%E6%96%B9%E5%BC%8F"><span class="toc-number">2.2.</span> <span class="toc-text">多比特跨时钟域的方式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BC%82%E6%AD%A5FIFO"><span class="toc-number">2.2.1.</span> <span class="toc-text">异步FIFO</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8FIFO"><span class="toc-number">2.2.1.1.</span> <span class="toc-text">使用FIFO</span></a></li></ol></li></ol></li></ol></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://cmoments.github.io/FPGA-practice/2026/03/05/FPGA-Ray/Basic/%E8%B7%A8%E6%97%B6%E9%92%9F%E5%9F%9F%E9%97%AE%E9%A2%98/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://cmoments.github.io/FPGA-practice/2026/03/05/FPGA-Ray/Basic/%E8%B7%A8%E6%97%B6%E9%92%9F%E5%9F%9F%E9%97%AE%E9%A2%98/&text=⏱️ 跨时钟域问题"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://cmoments.github.io/FPGA-practice/2026/03/05/FPGA-Ray/Basic/%E8%B7%A8%E6%97%B6%E9%92%9F%E5%9F%9F%E9%97%AE%E9%A2%98/&title=⏱️ 跨时钟域问题"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://cmoments.github.io/FPGA-practice/2026/03/05/FPGA-Ray/Basic/%E8%B7%A8%E6%97%B6%E9%92%9F%E5%9F%9F%E9%97%AE%E9%A2%98/&is_video=false&description=⏱️ 跨时钟域问题"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=⏱️ 跨时钟域问题&body=Check out this article: https://cmoments.github.io/FPGA-practice/2026/03/05/FPGA-Ray/Basic/%E8%B7%A8%E6%97%B6%E9%92%9F%E5%9F%9F%E9%97%AE%E9%A2%98/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://cmoments.github.io/FPGA-practice/2026/03/05/FPGA-Ray/Basic/%E8%B7%A8%E6%97%B6%E9%92%9F%E5%9F%9F%E9%97%AE%E9%A2%98/&title=⏱️ 跨时钟域问题"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://cmoments.github.io/FPGA-practice/2026/03/05/FPGA-Ray/Basic/%E8%B7%A8%E6%97%B6%E9%92%9F%E5%9F%9F%E9%97%AE%E9%A2%98/&title=⏱️ 跨时钟域问题"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://cmoments.github.io/FPGA-practice/2026/03/05/FPGA-Ray/Basic/%E8%B7%A8%E6%97%B6%E9%92%9F%E5%9F%9F%E9%97%AE%E9%A2%98/&title=⏱️ 跨时钟域问题"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://cmoments.github.io/FPGA-practice/2026/03/05/FPGA-Ray/Basic/%E8%B7%A8%E6%97%B6%E9%92%9F%E5%9F%9F%E9%97%AE%E9%A2%98/&title=⏱️ 跨时钟域问题"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://cmoments.github.io/FPGA-practice/2026/03/05/FPGA-Ray/Basic/%E8%B7%A8%E6%97%B6%E9%92%9F%E5%9F%9F%E9%97%AE%E9%A2%98/&name=⏱️ 跨时钟域问题&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://cmoments.github.io/FPGA-practice/2026/03/05/FPGA-Ray/Basic/%E8%B7%A8%E6%97%B6%E9%92%9F%E5%9F%9F%E9%97%AE%E9%A2%98/&t=⏱️ 跨时钟域问题"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2025-2026
+    ML-KEM
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="#FPGA-Ray">FPGA-Ray</a></li><!--
+     --><!--
+       --><li><a href="#EDA">EDA</a></li><!--
+     --><!--
+       --><li><a href="#OSOC">OSOC</a></li><!--
+     --><!--
+       --><li><a href="../../../../../../search/">Search</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="../../../../../../js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+<!-- FancyBox -->
+
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
+  <script>
+    Fancybox.defaults.hideScrollbar = false;
+  </script>
+
+
+
+</body>
+</html>

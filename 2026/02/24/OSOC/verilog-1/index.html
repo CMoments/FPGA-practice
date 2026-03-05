@@ -8,19 +8,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
     <meta name="description" content="后边遇到的HDLBits：Serial Receiver系列问题以及HDLBits: PS&#x2F;2系列问题的难点都差不多是状态机设计的问题了。遇到这种比特序列通信协议的实现，通常就是两个难点：计数器的调试实现和状态机的状态设计问题。看到知乎上不少人来讨论，这个笔记也讨论一下这个问题。 什么样的状态可以省略？举例：Serial Receiver with Parity Checking这个解决">
 <meta property="og:type" content="article">
-<meta property="og:title" content="verilog-1">
-<meta property="og:url" content="https://cmoments.github.io/FPGA-practice/2026/02/24/YSYC/verilog-1/index.html">
+<meta property="og:title" content="📘 Verilog-1">
+<meta property="og:url" content="https://cmoments.github.io/FPGA-practice/2026/02/24/OSOC/verilog-1/index.html">
 <meta property="og:site_name" content="ML-KEM&#39;s FPGA Practice">
 <meta property="og:description" content="后边遇到的HDLBits：Serial Receiver系列问题以及HDLBits: PS&#x2F;2系列问题的难点都差不多是状态机设计的问题了。遇到这种比特序列通信协议的实现，通常就是两个难点：计数器的调试实现和状态机的状态设计问题。看到知乎上不少人来讨论，这个笔记也讨论一下这个问题。 什么样的状态可以省略？举例：Serial Receiver with Parity Checking这个解决">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://cmoments.github.io/FPGA-practice/2026/02/24/YSYC/verilog-1/image.png">
-<meta property="og:image" content="https://cmoments.github.io/FPGA-practice/2026/02/24/YSYC/verilog-1/image.png">
-<meta property="og:image" content="https://cmoments.github.io/FPGA-practice/2026/02/24/YSYC/verilog-1/image-1.png">
+<meta property="og:image" content="https://cmoments.github.io/FPGA-practice/2026/02/24/OSOC/verilog-1/image.png">
+<meta property="og:image" content="https://cmoments.github.io/FPGA-practice/2026/02/24/OSOC/verilog-1/image.png">
+<meta property="og:image" content="https://cmoments.github.io/FPGA-practice/2026/02/24/OSOC/verilog-1/image-1.png">
 <meta property="article:published_time" content="2026-02-24T11:31:04.000Z">
-<meta property="article:modified_time" content="2026-02-24T12:06:43.438Z">
+<meta property="article:modified_time" content="2026-03-05T05:22:50.105Z">
 <meta property="article:author" content="ML-KEM">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://cmoments.github.io/FPGA-practice/2026/02/24/YSYC/verilog-1/image.png">
+<meta name="twitter:image" content="https://cmoments.github.io/FPGA-practice/2026/02/24/OSOC/verilog-1/image.png">
     
     
       
@@ -40,7 +40,7 @@
       
     
     <!-- title -->
-    <title>verilog-1</title>
+    <title>📘 Verilog-1</title>
     <!-- async scripts -->
     <!-- Google Analytics -->
 
@@ -81,7 +81,7 @@
      --><!--
        --><li><a href="#EDA">EDA</a></li><!--
      --><!--
-       --><li><a href="#YSYC">YSYC</a></li><!--
+       --><li><a href="#OSOC">OSOC</a></li><!--
      --><!--
        --><li><a href="../../../../../search/">Search</a></li><!--
      -->
@@ -94,7 +94,7 @@
         <li><a class="icon" aria-label="Previous post" href="../../FPGA-Ray/Network/AXI%E6%80%BB%E7%BA%BF%E4%B8%8E%E5%BA%94%E7%94%A8/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
         
         
-        <li><a class="icon" aria-label="Next post" href="../../../23/YSYC/verilog/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Next post" href="../../../23/OSOC/verilog/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
         
         <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
         <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
@@ -107,17 +107,17 @@
     <br/>
     <div id="share" style="display: none">
       <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://cmoments.github.io/FPGA-practice/2026/02/24/YSYC/verilog-1/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://cmoments.github.io/FPGA-practice/2026/02/24/YSYC/verilog-1/&text=verilog-1"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://cmoments.github.io/FPGA-practice/2026/02/24/YSYC/verilog-1/&title=verilog-1"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://cmoments.github.io/FPGA-practice/2026/02/24/YSYC/verilog-1/&is_video=false&description=verilog-1"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=verilog-1&body=Check out this article: https://cmoments.github.io/FPGA-practice/2026/02/24/YSYC/verilog-1/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://cmoments.github.io/FPGA-practice/2026/02/24/YSYC/verilog-1/&title=verilog-1"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://cmoments.github.io/FPGA-practice/2026/02/24/YSYC/verilog-1/&title=verilog-1"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://cmoments.github.io/FPGA-practice/2026/02/24/YSYC/verilog-1/&title=verilog-1"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://cmoments.github.io/FPGA-practice/2026/02/24/YSYC/verilog-1/&title=verilog-1"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://cmoments.github.io/FPGA-practice/2026/02/24/YSYC/verilog-1/&name=verilog-1&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://cmoments.github.io/FPGA-practice/2026/02/24/YSYC/verilog-1/&t=verilog-1"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://cmoments.github.io/FPGA-practice/2026/02/24/OSOC/verilog-1/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://cmoments.github.io/FPGA-practice/2026/02/24/OSOC/verilog-1/&text=📘 Verilog-1"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://cmoments.github.io/FPGA-practice/2026/02/24/OSOC/verilog-1/&title=📘 Verilog-1"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://cmoments.github.io/FPGA-practice/2026/02/24/OSOC/verilog-1/&is_video=false&description=📘 Verilog-1"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=📘 Verilog-1&body=Check out this article: https://cmoments.github.io/FPGA-practice/2026/02/24/OSOC/verilog-1/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://cmoments.github.io/FPGA-practice/2026/02/24/OSOC/verilog-1/&title=📘 Verilog-1"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://cmoments.github.io/FPGA-practice/2026/02/24/OSOC/verilog-1/&title=📘 Verilog-1"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://cmoments.github.io/FPGA-practice/2026/02/24/OSOC/verilog-1/&title=📘 Verilog-1"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://cmoments.github.io/FPGA-practice/2026/02/24/OSOC/verilog-1/&title=📘 Verilog-1"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://cmoments.github.io/FPGA-practice/2026/02/24/OSOC/verilog-1/&name=📘 Verilog-1&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://cmoments.github.io/FPGA-practice/2026/02/24/OSOC/verilog-1/&t=📘 Verilog-1"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -137,7 +137,7 @@
   <header>
     
     <h1 class="posttitle p-name" itemprop="name headline">
-        verilog-1
+        📘 Verilog-1
     </h1>
 
 
@@ -202,7 +202,7 @@
         
           <li><a href="#EDA">EDA</a></li>
         
-          <li><a href="#YSYC">YSYC</a></li>
+          <li><a href="#OSOC">OSOC</a></li>
         
           <li><a href="../../../../../search/">Search</a></li>
         
@@ -218,17 +218,17 @@
 
     <div id="share-footer" style="display: none">
       <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://cmoments.github.io/FPGA-practice/2026/02/24/YSYC/verilog-1/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://cmoments.github.io/FPGA-practice/2026/02/24/YSYC/verilog-1/&text=verilog-1"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://cmoments.github.io/FPGA-practice/2026/02/24/YSYC/verilog-1/&title=verilog-1"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://cmoments.github.io/FPGA-practice/2026/02/24/YSYC/verilog-1/&is_video=false&description=verilog-1"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=verilog-1&body=Check out this article: https://cmoments.github.io/FPGA-practice/2026/02/24/YSYC/verilog-1/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://cmoments.github.io/FPGA-practice/2026/02/24/YSYC/verilog-1/&title=verilog-1"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://cmoments.github.io/FPGA-practice/2026/02/24/YSYC/verilog-1/&title=verilog-1"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://cmoments.github.io/FPGA-practice/2026/02/24/YSYC/verilog-1/&title=verilog-1"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://cmoments.github.io/FPGA-practice/2026/02/24/YSYC/verilog-1/&title=verilog-1"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://cmoments.github.io/FPGA-practice/2026/02/24/YSYC/verilog-1/&name=verilog-1&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://cmoments.github.io/FPGA-practice/2026/02/24/YSYC/verilog-1/&t=verilog-1"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://cmoments.github.io/FPGA-practice/2026/02/24/OSOC/verilog-1/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://cmoments.github.io/FPGA-practice/2026/02/24/OSOC/verilog-1/&text=📘 Verilog-1"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://cmoments.github.io/FPGA-practice/2026/02/24/OSOC/verilog-1/&title=📘 Verilog-1"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://cmoments.github.io/FPGA-practice/2026/02/24/OSOC/verilog-1/&is_video=false&description=📘 Verilog-1"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=📘 Verilog-1&body=Check out this article: https://cmoments.github.io/FPGA-practice/2026/02/24/OSOC/verilog-1/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://cmoments.github.io/FPGA-practice/2026/02/24/OSOC/verilog-1/&title=📘 Verilog-1"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://cmoments.github.io/FPGA-practice/2026/02/24/OSOC/verilog-1/&title=📘 Verilog-1"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://cmoments.github.io/FPGA-practice/2026/02/24/OSOC/verilog-1/&title=📘 Verilog-1"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://cmoments.github.io/FPGA-practice/2026/02/24/OSOC/verilog-1/&title=📘 Verilog-1"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://cmoments.github.io/FPGA-practice/2026/02/24/OSOC/verilog-1/&name=📘 Verilog-1&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://cmoments.github.io/FPGA-practice/2026/02/24/OSOC/verilog-1/&t=📘 Verilog-1"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -262,7 +262,7 @@
      --><!--
        --><li><a href="#EDA">EDA</a></li><!--
      --><!--
-       --><li><a href="#YSYC">YSYC</a></li><!--
+       --><li><a href="#OSOC">OSOC</a></li><!--
      --><!--
        --><li><a href="../../../../../search/">Search</a></li><!--
      -->

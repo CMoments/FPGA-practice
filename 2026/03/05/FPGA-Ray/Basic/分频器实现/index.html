@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="分频器实现原理 偶数分频 实现 为什么是 (NUM_DIV&#x2F;2-1)？   波形图   奇数分频 实现 波形图     边沿检测 波形图   Appendix 偶分频器 奇分频器 边沿检测    分频器和呼吸灯的实现原理类似：都是调整信号占空比的问题 分频器实现原理分频器是指使输出信号频率为输入信号频率整数分之一的电子电路。在许多电子设备中如电子钟、频率合成器等，需要各种不同频率的信号">
+<meta property="og:type" content="article">
+<meta property="og:title" content="⏱️ 分频与边沿检测">
+<meta property="og:url" content="https://cmoments.github.io/FPGA-practice/2026/03/05/FPGA-Ray/Basic/%E5%88%86%E9%A2%91%E5%99%A8%E5%AE%9E%E7%8E%B0/index.html">
+<meta property="og:site_name" content="ML-KEM&#39;s FPGA Practice">
+<meta property="og:description" content="分频器实现原理 偶数分频 实现 为什么是 (NUM_DIV&#x2F;2-1)？   波形图   奇数分频 实现 波形图     边沿检测 波形图   Appendix 偶分频器 奇分频器 边沿检测    分频器和呼吸灯的实现原理类似：都是调整信号占空比的问题 分频器实现原理分频器是指使输出信号频率为输入信号频率整数分之一的电子电路。在许多电子设备中如电子钟、频率合成器等，需要各种不同频率的信号">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cmoments.github.io/FPGA-practice/2026/03/05/FPGA-Ray/Basic/%E5%88%86%E9%A2%91%E5%99%A8%E5%AE%9E%E7%8E%B0/%E5%88%86%E9%A2%91%E5%99%A8%E5%AE%9E%E7%8E%B0/image.png">
+<meta property="og:image" content="https://cmoments.github.io/FPGA-practice/2026/03/05/FPGA-Ray/Basic/%E5%88%86%E9%A2%91%E5%99%A8%E5%AE%9E%E7%8E%B0/%E5%88%86%E9%A2%91%E5%99%A8%E5%AE%9E%E7%8E%B0/image-1.png">
+<meta property="og:image" content="https://cmoments.github.io/FPGA-practice/2026/03/05/FPGA-Ray/Basic/%E5%88%86%E9%A2%91%E5%99%A8%E5%AE%9E%E7%8E%B0/%E5%88%86%E9%A2%91%E5%99%A8%E5%AE%9E%E7%8E%B0/image-2.png">
+<meta property="og:image" content="https://cmoments.github.io/FPGA-practice/2026/03/05/FPGA-Ray/Basic/%E5%88%86%E9%A2%91%E5%99%A8%E5%AE%9E%E7%8E%B0/%E5%88%86%E9%A2%91%E5%99%A8%E5%AE%9E%E7%8E%B0/image-3.png">
+<meta property="og:image" content="https://cmoments.github.io/FPGA-practice/2026/03/05/FPGA-Ray/Basic/%E5%88%86%E9%A2%91%E5%99%A8%E5%AE%9E%E7%8E%B0/%E5%88%86%E9%A2%91%E5%99%A8%E5%AE%9E%E7%8E%B0/image-4.png">
+<meta property="og:image" content="https://cmoments.github.io/FPGA-practice/2026/03/05/FPGA-Ray/Basic/%E5%88%86%E9%A2%91%E5%99%A8%E5%AE%9E%E7%8E%B0/%E5%88%86%E9%A2%91%E5%99%A8%E5%AE%9E%E7%8E%B0/image-5.png">
+<meta property="og:image" content="https://cmoments.github.io/FPGA-practice/2026/03/05/FPGA-Ray/Basic/%E5%88%86%E9%A2%91%E5%99%A8%E5%AE%9E%E7%8E%B0/%E5%88%86%E9%A2%91%E5%99%A8%E5%AE%9E%E7%8E%B0/image-6.png">
+<meta property="article:published_time" content="2026-03-05T06:40:20.000Z">
+<meta property="article:modified_time" content="2026-03-05T08:00:41.296Z">
+<meta property="article:author" content="ML-KEM">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cmoments.github.io/FPGA-practice/2026/03/05/FPGA-Ray/Basic/%E5%88%86%E9%A2%91%E5%99%A8%E5%AE%9E%E7%8E%B0/%E5%88%86%E9%A2%91%E5%99%A8%E5%AE%9E%E7%8E%B0/image.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="../../../../../../images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="../../../../../../images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="../../../../../../images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>⏱️ 分频与边沿检测</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="../../../../../../css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css" />
+  
+
+
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="#FPGA-Ray">FPGA-Ray</a></li><!--
+     --><!--
+       --><li><a href="#EDA">EDA</a></li><!--
+     --><!--
+       --><li><a href="#OSOC">OSOC</a></li><!--
+     --><!--
+       --><li><a href="../../../../../../search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="../IP%E7%BB%84%E4%BB%B6%E8%B0%83%E7%94%A8/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="../%E5%91%BC%E5%90%B8%E7%81%AF%E5%AE%9E%E7%8E%B0/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://cmoments.github.io/FPGA-practice/2026/03/05/FPGA-Ray/Basic/%E5%88%86%E9%A2%91%E5%99%A8%E5%AE%9E%E7%8E%B0/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://cmoments.github.io/FPGA-practice/2026/03/05/FPGA-Ray/Basic/%E5%88%86%E9%A2%91%E5%99%A8%E5%AE%9E%E7%8E%B0/&text=⏱️ 分频与边沿检测"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://cmoments.github.io/FPGA-practice/2026/03/05/FPGA-Ray/Basic/%E5%88%86%E9%A2%91%E5%99%A8%E5%AE%9E%E7%8E%B0/&title=⏱️ 分频与边沿检测"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://cmoments.github.io/FPGA-practice/2026/03/05/FPGA-Ray/Basic/%E5%88%86%E9%A2%91%E5%99%A8%E5%AE%9E%E7%8E%B0/&is_video=false&description=⏱️ 分频与边沿检测"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=⏱️ 分频与边沿检测&body=Check out this article: https://cmoments.github.io/FPGA-practice/2026/03/05/FPGA-Ray/Basic/%E5%88%86%E9%A2%91%E5%99%A8%E5%AE%9E%E7%8E%B0/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://cmoments.github.io/FPGA-practice/2026/03/05/FPGA-Ray/Basic/%E5%88%86%E9%A2%91%E5%99%A8%E5%AE%9E%E7%8E%B0/&title=⏱️ 分频与边沿检测"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://cmoments.github.io/FPGA-practice/2026/03/05/FPGA-Ray/Basic/%E5%88%86%E9%A2%91%E5%99%A8%E5%AE%9E%E7%8E%B0/&title=⏱️ 分频与边沿检测"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://cmoments.github.io/FPGA-practice/2026/03/05/FPGA-Ray/Basic/%E5%88%86%E9%A2%91%E5%99%A8%E5%AE%9E%E7%8E%B0/&title=⏱️ 分频与边沿检测"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://cmoments.github.io/FPGA-practice/2026/03/05/FPGA-Ray/Basic/%E5%88%86%E9%A2%91%E5%99%A8%E5%AE%9E%E7%8E%B0/&title=⏱️ 分频与边沿检测"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://cmoments.github.io/FPGA-practice/2026/03/05/FPGA-Ray/Basic/%E5%88%86%E9%A2%91%E5%99%A8%E5%AE%9E%E7%8E%B0/&name=⏱️ 分频与边沿检测&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://cmoments.github.io/FPGA-practice/2026/03/05/FPGA-Ray/Basic/%E5%88%86%E9%A2%91%E5%99%A8%E5%AE%9E%E7%8E%B0/&t=⏱️ 分频与边沿检测"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%88%86%E9%A2%91%E5%99%A8%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86"><span class="toc-number">1.</span> <span class="toc-text">分频器实现原理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%81%B6%E6%95%B0%E5%88%86%E9%A2%91"><span class="toc-number">1.1.</span> <span class="toc-text">偶数分频</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0"><span class="toc-number">1.1.1.</span> <span class="toc-text">实现</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E6%98%AF-NUM-DIV-2-1-%EF%BC%9F"><span class="toc-number">1.1.1.1.</span> <span class="toc-text">为什么是 (NUM_DIV&#x2F;2-1)？</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B3%A2%E5%BD%A2%E5%9B%BE"><span class="toc-number">1.1.2.</span> <span class="toc-text">波形图</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A5%87%E6%95%B0%E5%88%86%E9%A2%91"><span class="toc-number">1.2.</span> <span class="toc-text">奇数分频</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0-1"><span class="toc-number">1.2.1.</span> <span class="toc-text">实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B3%A2%E5%BD%A2%E5%9B%BE-1"><span class="toc-number">1.2.2.</span> <span class="toc-text">波形图</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%BE%B9%E6%B2%BF%E6%A3%80%E6%B5%8B"><span class="toc-number">2.</span> <span class="toc-text">边沿检测</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B3%A2%E5%BD%A2%E5%9B%BE-2"><span class="toc-number">2.1.</span> <span class="toc-text">波形图</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Appendix"><span class="toc-number">3.</span> <span class="toc-text">Appendix</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%81%B6%E5%88%86%E9%A2%91%E5%99%A8"><span class="toc-number">3.1.</span> <span class="toc-text">偶分频器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A5%87%E5%88%86%E9%A2%91%E5%99%A8"><span class="toc-number">3.2.</span> <span class="toc-text">奇分频器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BE%B9%E6%B2%BF%E6%A3%80%E6%B5%8B-1"><span class="toc-number">3.3.</span> <span class="toc-text">边沿检测</span></a></li></ol></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        ⏱️ 分频与边沿检测
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">ML-KEM</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2026-03-05T06:40:20.000Z" class="dt-published" itemprop="datePublished">2026-03-05</time>
+        
+      
+    </div>
+
+
+      
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <ul>
+<li><a href="#%E5%88%86%E9%A2%91%E5%99%A8%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86">分频器实现原理</a><ul>
+<li><a href="#%E5%81%B6%E6%95%B0%E5%88%86%E9%A2%91">偶数分频</a><ul>
+<li><a href="#%E5%AE%9E%E7%8E%B0">实现</a><ul>
+<li><a href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E6%98%AF-num_div2-1">为什么是 (NUM_DIV&#x2F;2-1)？</a></li>
+</ul>
+</li>
+<li><a href="#%E6%B3%A2%E5%BD%A2%E5%9B%BE">波形图</a></li>
+</ul>
+</li>
+<li><a href="#%E5%A5%87%E6%95%B0%E5%88%86%E9%A2%91">奇数分频</a><ul>
+<li><a href="#%E5%AE%9E%E7%8E%B0-1">实现</a></li>
+<li><a href="#%E6%B3%A2%E5%BD%A2%E5%9B%BE-1">波形图</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#%E8%BE%B9%E6%B2%BF%E6%A3%80%E6%B5%8B">边沿检测</a><ul>
+<li><a href="#%E6%B3%A2%E5%BD%A2%E5%9B%BE-2">波形图</a></li>
+</ul>
+</li>
+<li><a href="#appendix">Appendix</a><ul>
+<li><a href="#%E5%81%B6%E5%88%86%E9%A2%91%E5%99%A8">偶分频器</a></li>
+<li><a href="#%E5%A5%87%E5%88%86%E9%A2%91%E5%99%A8">奇分频器</a></li>
+<li><a href="#%E8%BE%B9%E6%B2%BF%E6%A3%80%E6%B5%8B-1">边沿检测</a></li>
+</ul>
+</li>
+</ul>
+<p>分频器和呼吸灯的实现原理类似：都是调整信号占空比的问题</p>
+<h1 id="分频器实现原理"><a href="#分频器实现原理" class="headerlink" title="分频器实现原理"></a>分频器实现原理</h1><p>分频器是指使输出信号频率为输入信号频率整数分之一的电子电路。在许多电子设备中如电子钟、频率合成器等，需要各种不同频率的信号协同工作，常用的方法是以稳定度高的晶体振荡器为主振源，通过变换得到所需要的各种频率成分，分频器是一种主要变换手段。早期的分频器多为正弦分频器，随着数字集成电路的发展，脉冲分频器（又称数字分频器）逐渐取代了正弦分频器。采用触发器反向输出端连接到输入端的方式，可构成简单的 2 分频电路。以此为基础进行级联，可构成 4 分频，8 分频电路。电路实现如下图所示，用 <code>Verilog</code> 描述时只需使用简单的取反逻辑即可。<br><a data-fancybox="gallery" data-src="image.png" data-caption=""><img src="image.png"></a></p>
+<h2 id="偶数分频"><a href="#偶数分频" class="headerlink" title="偶数分频"></a>偶数分频</h2><h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><p>只使用一个计数器，通过计数在分频后的前半个周期和后半个周期电平取反之后就得到了一个偶数分频模块，偶数分频模块代码可以在其他工程中复用。</p>
+<h4 id="为什么是-NUM-DIV-2-1-？"><a href="#为什么是-NUM-DIV-2-1-？" class="headerlink" title="为什么是 (NUM_DIV&#x2F;2-1)？"></a>为什么是 (NUM_DIV&#x2F;2-1)？</h4><p>分周期计数：对于N分频（N为偶数），输出时钟的一个完整周期对应输入时钟的N个周期。由于输出时钟是方波，高电平和低电平各占N&#x2F;2个输入时钟周期。</p>
+<p>计数器范围：计数器需要从0计数到(N&#x2F;2 - 1)，总共N&#x2F;2个状态</p>
+<p>当计数器等于(N&#x2F;2 - 1)时，表示已经过去了N&#x2F;2个输入时钟周期，此时需要翻转输出时钟，并重置计数器。</p>
+<h3 id="波形图"><a href="#波形图" class="headerlink" title="波形图"></a>波形图</h3><p>偶数分频代码仿真观察波形，下图时偶数分频100MHZ时钟经过六分频之后的时钟，可以看到分频之后的时钟周期是60ns的时钟周期，达到六分频的效果。<br><a data-fancybox="gallery" data-src="image-1.png" data-caption="6分频"><img src="image-1.png" alt="6分频"></a></p>
+<p>将偶数分频模块的分频参数修改为8，可以看到8分频的效果，时钟周期为80ns，完成8分频的功能<br><a data-fancybox="gallery" data-src="image-2.png" data-caption="8分频"><img src="image-2.png" alt="8分频"></a></p>
+<h2 id="奇数分频"><a href="#奇数分频" class="headerlink" title="奇数分频"></a>奇数分频</h2><h3 id="实现-1"><a href="#实现-1" class="headerlink" title="实现"></a>实现</h3><p>奇数分频则可以利用源时钟双边沿特性并采用”与操作”或”或操作”的方式将分频时钟占空比调整到 50%。<br>采用”或操作”产生占空比为 50% 的 3 分频时序图如下所示。</p>
+<ol>
+<li>利用源时钟上升沿分频出高电平为 1 个 cycle、低电平为 2 个 cycle 的 3 分频时钟。</li>
+<li>利用源时钟下降沿分频出高电平为 1 个 cycle、低电平为 2 个 cycle 的 3 分频时钟。</li>
+<li>两个 3 分频时钟应该在计数器相同数值、不同边沿下产生，相位差为半个时钟周期。然后将 2 个时钟进行”或操作”，便可以得到占空比为 50% 的 3 分频时钟。<br><a data-fancybox="gallery" data-src="image-3.png" data-caption=""><img src="image-3.png"></a></li>
+</ol>
+<h3 id="波形图-1"><a href="#波形图-1" class="headerlink" title="波形图"></a>波形图</h3><p>奇数分频代码仿真图，下图时100MHZ时钟九分频，clk_div是最终分频得到的九分频时钟，通过在上升沿和下降沿分别得到的时钟<br><a data-fancybox="gallery" data-src="image-4.png" data-caption="九分频"><img src="image-4.png" alt="九分频"></a><br>修改奇数分频代码中的任意分频参数之后，修改为七分频，下图仿真波形是七分频时钟的波形。<br><a data-fancybox="gallery" data-src="image-5.png" data-caption="七分频"><img src="image-5.png" alt="七分频"></a></p>
+<h1 id="边沿检测"><a href="#边沿检测" class="headerlink" title="边沿检测"></a>边沿检测</h1><p>是数字电路设计中常用的方法之一。其基本原理是通过触发器检测输入信号的状态变化，并触发相应的逻辑操作。<br>边沿检测的方法都很不相同，可以用打两拍实现，也可以用移位寄存器实现，还有的打三拍，用到的地方也很多，检测脉冲，检测SPI接口的时钟上升沿和下降沿，按键消抖等等都会用到。</p>
+<h3 id="波形图-2"><a href="#波形图-2" class="headerlink" title="波形图"></a>波形图</h3><p>使用modelsim仿真得到的波形图，从下图可以看出外部输入的脉冲信号，在输入时，程序检测到上升沿信号，o_pos信号拉高，在脉冲信号结束时程序检测到下降沿信号，o_neg信号拉高，可以正确的检测到边沿信号，完成边沿检测的程序仿真。<br><a data-fancybox="gallery" data-src="image-6.png" data-caption="边沿检测"><img src="image-6.png" alt="边沿检测"></a></p>
+<h1 id="Appendix"><a href="#Appendix" class="headerlink" title="Appendix"></a>Appendix</h1><h3 id="偶分频器"><a href="#偶分频器" class="headerlink" title="偶分频器"></a>偶分频器</h3><figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">module</span> clk_even_div#(</span><br><span class="line">    <span class="keyword">parameter</span> NUM_DIV = <span class="number">6</span></span><br><span class="line">)(</span><br><span class="line">    <span class="keyword">input</span>    i_sys_clk, <span class="comment">//输入时钟</span></span><br><span class="line">    <span class="keyword">input</span>    i_sys_rst, <span class="comment">//输入复位信号</span></span><br><span class="line">    <span class="keyword">output</span>   div_clk</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">reg</span>    div_clk_reg = <span class="number">1&#x27;b0</span>;</span><br><span class="line"><span class="keyword">reg</span> [<span class="number">3</span>:<span class="number">0</span>] div_cnt    = <span class="number">4&#x27;d0</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">assign</span> div_clk = div_clk_reg;</span><br><span class="line"></span><br><span class="line"><span class="comment">//偶数分频模块</span></span><br><span class="line"><span class="keyword">always</span> @ (<span class="keyword">posedge</span> i_sys_clk <span class="keyword">or</span> <span class="keyword">negedge</span> i_sys_rst)<span class="keyword">begin</span></span><br><span class="line">    <span class="keyword">if</span>(i_sys_rst) <span class="comment">//复位时清零</span></span><br><span class="line">    <span class="keyword">begin</span></span><br><span class="line">    div_clk_reg &lt;= <span class="number">1&#x27;b0</span>;</span><br><span class="line">    div_cnt &lt;= <span class="number">4&#x27;d0</span>;</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">else</span> <span class="keyword">if</span>(div_cnt &lt; (NUM_DIV/<span class="number">2</span>-<span class="number">1</span>)) <span class="comment">//计数器小于(NUM_DIV/2-1)加1，否则置零</span></span><br><span class="line"><span class="keyword">begin</span></span><br><span class="line">    div_clk_reg &lt;= div_clk_reg;</span><br><span class="line">    div_cnt &lt;= div_cnt + <span class="number">4&#x27;d1</span>;</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line"><span class="keyword">begin</span></span><br><span class="line">    div_clk_reg &lt;= ~div_clk_reg;</span><br><span class="line">    div_cnt &lt;= <span class="number">4&#x27;d0</span>;</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">endmodule</span></span><br></pre></td></tr></table></figure>
+<h3 id="奇分频器"><a href="#奇分频器" class="headerlink" title="奇分频器"></a>奇分频器</h3><figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//在上升沿产生9分频</span></span><br><span class="line"><span class="keyword">reg</span>    clkp_div9_r  ;</span><br><span class="line"><span class="keyword">always</span> @(<span class="keyword">posedge</span> clk <span class="keyword">or</span> <span class="keyword">negedge</span> rstn) <span class="keyword">begin</span></span><br><span class="line">    <span class="keyword">if</span> (!rstn) <span class="keyword">begin</span></span><br><span class="line">    clkp_div9_r &lt;= <span class="number">1&#x27;b0</span>  ;</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (cnt == (DIV_CLK&gt;&gt;<span class="number">1</span>)-<span class="number">1</span> ) <span class="keyword">begin</span> <span class="comment">//计数4-8位低电平</span></span><br><span class="line">    clkp_div9_r &lt;= <span class="number">0</span>  ;</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (cnt == DIV_CLK-<span class="number">1</span>) <span class="keyword">begin</span> <span class="comment">//计数 0-3 为高电平</span></span><br><span class="line">    clkp_div9_r &lt;= <span class="number">1</span>  ;</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//在下降沿产生9分频</span></span><br><span class="line"><span class="keyword">reg</span>    clkn_div9_r  ;</span><br><span class="line"><span class="keyword">always</span> @(<span class="keyword">negedge</span> clk <span class="keyword">or</span> <span class="keyword">negedge</span> rstn) <span class="keyword">begin</span></span><br><span class="line">    <span class="keyword">if</span> (!rstn) <span class="keyword">begin</span></span><br><span class="line">    clkn_div9_r &lt;= <span class="number">1&#x27;b0</span>  ;</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (cnt == (DIV_CLK&gt;&gt;<span class="number">1</span>)-<span class="number">1</span> ) <span class="keyword">begin</span></span><br><span class="line">    clkn_div9_r &lt;= <span class="number">0</span>  ;</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (cnt == DIV_CLK-<span class="number">1</span>) <span class="keyword">begin</span></span><br><span class="line">    clkn_div9_r &lt;= <span class="number">1</span>  ;</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//或操作    输出分频时钟</span></span><br><span class="line"><span class="keyword">assign</span> clk_div = clkp_div9_r | clkn_div9_r ;</span><br><span class="line"></span><br><span class="line"><span class="keyword">endmodule</span></span><br></pre></td></tr></table></figure>
+<h3 id="边沿检测-1"><a href="#边沿检测-1" class="headerlink" title="边沿检测"></a>边沿检测</h3><figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//将输入边沿信号打两拍</span></span><br><span class="line"><span class="keyword">always</span> @ (<span class="keyword">posedge</span> i_sys_clk <span class="keyword">or</span> <span class="keyword">negedge</span> i_sys_rst_n)</span><br><span class="line"><span class="keyword">begin</span></span><br><span class="line">    <span class="keyword">if</span>(!i_sys_rst_n)</span><br><span class="line">    <span class="keyword">begin</span></span><br><span class="line">    pulse_reg0 &lt;= <span class="number">1&#x27;b0</span>;</span><br><span class="line">    pulse_reg1 &lt;= <span class="number">1&#x27;b0</span>;</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    <span class="keyword">begin</span></span><br><span class="line">    pulse_reg0 &lt;= i_pulse ;</span><br><span class="line">    pulse_reg1 &lt;= pulse_reg0;</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//将第二拍取反和第一拍相与得到上升沿</span></span><br><span class="line"><span class="keyword">assign</span> o_pos = ~pulse_reg1 &amp;&amp; pulse_reg0;</span><br><span class="line"></span><br><span class="line"><span class="comment">//将第一拍取反和第二拍相与得到下降沿</span></span><br><span class="line"><span class="keyword">assign</span> o_neg = ~pulse_reg0 &amp;&amp; pulse_reg1;</span><br><span class="line"></span><br><span class="line"><span class="comment">//将上升沿和下降沿相或输出双边沿信号</span></span><br><span class="line"><span class="keyword">assign</span> data_edge = o_pos | o_neg ;</span><br><span class="line"></span><br><span class="line"><span class="keyword">endmodule</span></span><br></pre></td></tr></table></figure>
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="#FPGA-Ray">FPGA-Ray</a></li>
+        
+          <li><a href="#EDA">EDA</a></li>
+        
+          <li><a href="#OSOC">OSOC</a></li>
+        
+          <li><a href="../../../../../../search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%88%86%E9%A2%91%E5%99%A8%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86"><span class="toc-number">1.</span> <span class="toc-text">分频器实现原理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%81%B6%E6%95%B0%E5%88%86%E9%A2%91"><span class="toc-number">1.1.</span> <span class="toc-text">偶数分频</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0"><span class="toc-number">1.1.1.</span> <span class="toc-text">实现</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E6%98%AF-NUM-DIV-2-1-%EF%BC%9F"><span class="toc-number">1.1.1.1.</span> <span class="toc-text">为什么是 (NUM_DIV&#x2F;2-1)？</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B3%A2%E5%BD%A2%E5%9B%BE"><span class="toc-number">1.1.2.</span> <span class="toc-text">波形图</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A5%87%E6%95%B0%E5%88%86%E9%A2%91"><span class="toc-number">1.2.</span> <span class="toc-text">奇数分频</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0-1"><span class="toc-number">1.2.1.</span> <span class="toc-text">实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B3%A2%E5%BD%A2%E5%9B%BE-1"><span class="toc-number">1.2.2.</span> <span class="toc-text">波形图</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%BE%B9%E6%B2%BF%E6%A3%80%E6%B5%8B"><span class="toc-number">2.</span> <span class="toc-text">边沿检测</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B3%A2%E5%BD%A2%E5%9B%BE-2"><span class="toc-number">2.1.</span> <span class="toc-text">波形图</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Appendix"><span class="toc-number">3.</span> <span class="toc-text">Appendix</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%81%B6%E5%88%86%E9%A2%91%E5%99%A8"><span class="toc-number">3.1.</span> <span class="toc-text">偶分频器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A5%87%E5%88%86%E9%A2%91%E5%99%A8"><span class="toc-number">3.2.</span> <span class="toc-text">奇分频器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BE%B9%E6%B2%BF%E6%A3%80%E6%B5%8B-1"><span class="toc-number">3.3.</span> <span class="toc-text">边沿检测</span></a></li></ol></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://cmoments.github.io/FPGA-practice/2026/03/05/FPGA-Ray/Basic/%E5%88%86%E9%A2%91%E5%99%A8%E5%AE%9E%E7%8E%B0/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://cmoments.github.io/FPGA-practice/2026/03/05/FPGA-Ray/Basic/%E5%88%86%E9%A2%91%E5%99%A8%E5%AE%9E%E7%8E%B0/&text=⏱️ 分频与边沿检测"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://cmoments.github.io/FPGA-practice/2026/03/05/FPGA-Ray/Basic/%E5%88%86%E9%A2%91%E5%99%A8%E5%AE%9E%E7%8E%B0/&title=⏱️ 分频与边沿检测"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://cmoments.github.io/FPGA-practice/2026/03/05/FPGA-Ray/Basic/%E5%88%86%E9%A2%91%E5%99%A8%E5%AE%9E%E7%8E%B0/&is_video=false&description=⏱️ 分频与边沿检测"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=⏱️ 分频与边沿检测&body=Check out this article: https://cmoments.github.io/FPGA-practice/2026/03/05/FPGA-Ray/Basic/%E5%88%86%E9%A2%91%E5%99%A8%E5%AE%9E%E7%8E%B0/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://cmoments.github.io/FPGA-practice/2026/03/05/FPGA-Ray/Basic/%E5%88%86%E9%A2%91%E5%99%A8%E5%AE%9E%E7%8E%B0/&title=⏱️ 分频与边沿检测"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://cmoments.github.io/FPGA-practice/2026/03/05/FPGA-Ray/Basic/%E5%88%86%E9%A2%91%E5%99%A8%E5%AE%9E%E7%8E%B0/&title=⏱️ 分频与边沿检测"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://cmoments.github.io/FPGA-practice/2026/03/05/FPGA-Ray/Basic/%E5%88%86%E9%A2%91%E5%99%A8%E5%AE%9E%E7%8E%B0/&title=⏱️ 分频与边沿检测"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://cmoments.github.io/FPGA-practice/2026/03/05/FPGA-Ray/Basic/%E5%88%86%E9%A2%91%E5%99%A8%E5%AE%9E%E7%8E%B0/&title=⏱️ 分频与边沿检测"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://cmoments.github.io/FPGA-practice/2026/03/05/FPGA-Ray/Basic/%E5%88%86%E9%A2%91%E5%99%A8%E5%AE%9E%E7%8E%B0/&name=⏱️ 分频与边沿检测&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://cmoments.github.io/FPGA-practice/2026/03/05/FPGA-Ray/Basic/%E5%88%86%E9%A2%91%E5%99%A8%E5%AE%9E%E7%8E%B0/&t=⏱️ 分频与边沿检测"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2025-2026
+    ML-KEM
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="#FPGA-Ray">FPGA-Ray</a></li><!--
+     --><!--
+       --><li><a href="#EDA">EDA</a></li><!--
+     --><!--
+       --><li><a href="#OSOC">OSOC</a></li><!--
+     --><!--
+       --><li><a href="../../../../../../search/">Search</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="../../../../../../js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+<!-- FancyBox -->
+
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
+  <script>
+    Fancybox.defaults.hideScrollbar = false;
+  </script>
+
+
+
+</body>
+</html>

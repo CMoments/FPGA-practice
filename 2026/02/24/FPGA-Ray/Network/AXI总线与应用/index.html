@@ -6,12 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-    <meta name="description" content="学习AXI总线能够加深对FPGA设计中对数据传输与控制的理解。 AXI：AXI(Advanced eXtensible Interface)总线：是ARM公司提出的AMBA3.0协议中的重要组成部分，是一种高性能，高带宽，低延迟的片内总线。  AXI总线已经成为高性能SoC设计、FPGA设计中采用的总线标准。 AXI总线包括：AXI4、AXI4-Lite和AXI4-Stream   AXI总线读操">
+    <meta name="description" content="学习AXI总线能够加深对FPGA设计中对数据传输与控制的理解。 AXI：AXI(Advanced eXtensible Interface)总线：是ARM公司提出的AMBA3.0协议中的重要组成部分，是一种高性能，高带宽，低延迟的片内总线。  AXI总线已经成为高性能SoC设计、FPGA设计中采用的总线标准。 AXI总线包括：AXI4、AXI4-Lite和AXI4-Stream  AXI总线读操作">
 <meta property="og:type" content="article">
-<meta property="og:title" content="AXI总线与应用">
+<meta property="og:title" content="🔌 AXI总线与应用">
 <meta property="og:url" content="https://cmoments.github.io/FPGA-practice/2026/02/24/FPGA-Ray/Network/AXI%E6%80%BB%E7%BA%BF%E4%B8%8E%E5%BA%94%E7%94%A8/index.html">
 <meta property="og:site_name" content="ML-KEM&#39;s FPGA Practice">
-<meta property="og:description" content="学习AXI总线能够加深对FPGA设计中对数据传输与控制的理解。 AXI：AXI(Advanced eXtensible Interface)总线：是ARM公司提出的AMBA3.0协议中的重要组成部分，是一种高性能，高带宽，低延迟的片内总线。  AXI总线已经成为高性能SoC设计、FPGA设计中采用的总线标准。 AXI总线包括：AXI4、AXI4-Lite和AXI4-Stream   AXI总线读操">
+<meta property="og:description" content="学习AXI总线能够加深对FPGA设计中对数据传输与控制的理解。 AXI：AXI(Advanced eXtensible Interface)总线：是ARM公司提出的AMBA3.0协议中的重要组成部分，是一种高性能，高带宽，低延迟的片内总线。  AXI总线已经成为高性能SoC设计、FPGA设计中采用的总线标准。 AXI总线包括：AXI4、AXI4-Lite和AXI4-Stream  AXI总线读操作">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://cmoments.github.io/FPGA-practice/2026/02/24/FPGA-Ray/Network/AXI%E6%80%BB%E7%BA%BF%E4%B8%8E%E5%BA%94%E7%94%A8/image-2.png">
 <meta property="og:image" content="https://cmoments.github.io/FPGA-practice/2026/02/24/FPGA-Ray/Network/AXI%E6%80%BB%E7%BA%BF%E4%B8%8E%E5%BA%94%E7%94%A8/image-5.png">
@@ -21,7 +21,7 @@
 <meta property="og:image" content="https://cmoments.github.io/FPGA-practice/2026/02/24/FPGA-Ray/Network/AXI%E6%80%BB%E7%BA%BF%E4%B8%8E%E5%BA%94%E7%94%A8/Block-Memory-Generator.png">
 <meta property="og:image" content="https://cmoments.github.io/FPGA-practice/2026/02/24/FPGA-Ray/Network/AXI%E6%80%BB%E7%BA%BF%E4%B8%8E%E5%BA%94%E7%94%A8/AXI.png">
 <meta property="article:published_time" content="2026-02-24T12:09:17.000Z">
-<meta property="article:modified_time" content="2026-02-24T13:24:11.803Z">
+<meta property="article:modified_time" content="2026-03-05T05:41:36.786Z">
 <meta property="article:author" content="ML-KEM">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://cmoments.github.io/FPGA-practice/2026/02/24/FPGA-Ray/Network/AXI%E6%80%BB%E7%BA%BF%E4%B8%8E%E5%BA%94%E7%94%A8/image-2.png">
@@ -44,7 +44,7 @@
       
     
     <!-- title -->
-    <title>AXI总线与应用</title>
+    <title>🔌 AXI总线与应用</title>
     <!-- async scripts -->
     <!-- Google Analytics -->
 
@@ -85,7 +85,7 @@
      --><!--
        --><li><a href="#EDA">EDA</a></li><!--
      --><!--
-       --><li><a href="#YSYC">YSYC</a></li><!--
+       --><li><a href="#OSOC">OSOC</a></li><!--
      --><!--
        --><li><a href="../../../../../../search/">Search</a></li><!--
      -->
@@ -95,10 +95,10 @@
     <span id="actions">
       <ul>
         
-        <li><a class="icon" aria-label="Previous post" href="../../../../25/YSYC/verilog-2/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Previous post" href="../../../../25/OSOC/verilog-2/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
         
         
-        <li><a class="icon" aria-label="Next post" href="../../../YSYC/verilog-1/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Next post" href="../../../OSOC/verilog-1/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
         
         <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
         <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
@@ -112,23 +112,23 @@
     <div id="share" style="display: none">
       <ul>
   <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://cmoments.github.io/FPGA-practice/2026/02/24/FPGA-Ray/Network/AXI%E6%80%BB%E7%BA%BF%E4%B8%8E%E5%BA%94%E7%94%A8/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://cmoments.github.io/FPGA-practice/2026/02/24/FPGA-Ray/Network/AXI%E6%80%BB%E7%BA%BF%E4%B8%8E%E5%BA%94%E7%94%A8/&text=AXI总线与应用"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://cmoments.github.io/FPGA-practice/2026/02/24/FPGA-Ray/Network/AXI%E6%80%BB%E7%BA%BF%E4%B8%8E%E5%BA%94%E7%94%A8/&title=AXI总线与应用"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://cmoments.github.io/FPGA-practice/2026/02/24/FPGA-Ray/Network/AXI%E6%80%BB%E7%BA%BF%E4%B8%8E%E5%BA%94%E7%94%A8/&is_video=false&description=AXI总线与应用"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=AXI总线与应用&body=Check out this article: https://cmoments.github.io/FPGA-practice/2026/02/24/FPGA-Ray/Network/AXI%E6%80%BB%E7%BA%BF%E4%B8%8E%E5%BA%94%E7%94%A8/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://cmoments.github.io/FPGA-practice/2026/02/24/FPGA-Ray/Network/AXI%E6%80%BB%E7%BA%BF%E4%B8%8E%E5%BA%94%E7%94%A8/&title=AXI总线与应用"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://cmoments.github.io/FPGA-practice/2026/02/24/FPGA-Ray/Network/AXI%E6%80%BB%E7%BA%BF%E4%B8%8E%E5%BA%94%E7%94%A8/&title=AXI总线与应用"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://cmoments.github.io/FPGA-practice/2026/02/24/FPGA-Ray/Network/AXI%E6%80%BB%E7%BA%BF%E4%B8%8E%E5%BA%94%E7%94%A8/&title=AXI总线与应用"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://cmoments.github.io/FPGA-practice/2026/02/24/FPGA-Ray/Network/AXI%E6%80%BB%E7%BA%BF%E4%B8%8E%E5%BA%94%E7%94%A8/&title=AXI总线与应用"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://cmoments.github.io/FPGA-practice/2026/02/24/FPGA-Ray/Network/AXI%E6%80%BB%E7%BA%BF%E4%B8%8E%E5%BA%94%E7%94%A8/&name=AXI总线与应用&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://cmoments.github.io/FPGA-practice/2026/02/24/FPGA-Ray/Network/AXI%E6%80%BB%E7%BA%BF%E4%B8%8E%E5%BA%94%E7%94%A8/&t=AXI总线与应用"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://cmoments.github.io/FPGA-practice/2026/02/24/FPGA-Ray/Network/AXI%E6%80%BB%E7%BA%BF%E4%B8%8E%E5%BA%94%E7%94%A8/&text=🔌 AXI总线与应用"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://cmoments.github.io/FPGA-practice/2026/02/24/FPGA-Ray/Network/AXI%E6%80%BB%E7%BA%BF%E4%B8%8E%E5%BA%94%E7%94%A8/&title=🔌 AXI总线与应用"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://cmoments.github.io/FPGA-practice/2026/02/24/FPGA-Ray/Network/AXI%E6%80%BB%E7%BA%BF%E4%B8%8E%E5%BA%94%E7%94%A8/&is_video=false&description=🔌 AXI总线与应用"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=🔌 AXI总线与应用&body=Check out this article: https://cmoments.github.io/FPGA-practice/2026/02/24/FPGA-Ray/Network/AXI%E6%80%BB%E7%BA%BF%E4%B8%8E%E5%BA%94%E7%94%A8/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://cmoments.github.io/FPGA-practice/2026/02/24/FPGA-Ray/Network/AXI%E6%80%BB%E7%BA%BF%E4%B8%8E%E5%BA%94%E7%94%A8/&title=🔌 AXI总线与应用"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://cmoments.github.io/FPGA-practice/2026/02/24/FPGA-Ray/Network/AXI%E6%80%BB%E7%BA%BF%E4%B8%8E%E5%BA%94%E7%94%A8/&title=🔌 AXI总线与应用"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://cmoments.github.io/FPGA-practice/2026/02/24/FPGA-Ray/Network/AXI%E6%80%BB%E7%BA%BF%E4%B8%8E%E5%BA%94%E7%94%A8/&title=🔌 AXI总线与应用"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://cmoments.github.io/FPGA-practice/2026/02/24/FPGA-Ray/Network/AXI%E6%80%BB%E7%BA%BF%E4%B8%8E%E5%BA%94%E7%94%A8/&title=🔌 AXI总线与应用"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://cmoments.github.io/FPGA-practice/2026/02/24/FPGA-Ray/Network/AXI%E6%80%BB%E7%BA%BF%E4%B8%8E%E5%BA%94%E7%94%A8/&name=🔌 AXI总线与应用&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://cmoments.github.io/FPGA-practice/2026/02/24/FPGA-Ray/Network/AXI%E6%80%BB%E7%BA%BF%E4%B8%8E%E5%BA%94%E7%94%A8/&t=🔌 AXI总线与应用"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
     
     
       <div id="toc">
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#AXI%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">AXI：</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#AXI%E6%80%BB%E7%BA%BF%E8%AF%BB%E6%93%8D%E4%BD%9C"><span class="toc-number">2.</span> <span class="toc-text">AXI总线读操作</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8A%B6%E6%80%81%E8%BD%AC%E6%8D%A2%E5%9B%BE"><span class="toc-number">2.1.</span> <span class="toc-text">状态转换图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="toc-number">2.2.</span> <span class="toc-text">代码实现</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#AXI%E6%80%BB%E7%BA%BF%E5%86%99%E6%93%8D%E4%BD%9C"><span class="toc-number">3.</span> <span class="toc-text">AXI总线写操作</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8A%B6%E6%80%81%E8%BD%AC%E6%8D%A2%E5%9B%BE-1"><span class="toc-number">3.1.</span> <span class="toc-text">状态转换图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0-1"><span class="toc-number">3.2.</span> <span class="toc-text">代码实现</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E6%8E%A7%E5%88%B6%E9%80%BB%E8%BE%91%EF%BC%8C%E7%94%A8%E4%BA%8E%E9%80%9A%E8%BF%87AXI-Lite%E6%8E%A5%E5%8F%A3%E5%AF%B9RAM%E8%BF%9B%E8%A1%8C%E8%AF%BB%E5%86%99%E6%93%8D%E4%BD%9C%E3%80%82"><span class="toc-number">4.</span> <span class="toc-text">设计一个简单的控制逻辑，用于通过AXI-Lite接口对RAM进行读写操作。</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0IP%E6%A0%B8%EF%BC%9AAXI-BRAM-Controller"><span class="toc-number">4.1.</span> <span class="toc-text">添加IP核：AXI BRAM Controller</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0IP%E6%A0%B8%EF%BC%9ABlock-Memory-Generator"><span class="toc-number">4.2.</span> <span class="toc-text">添加IP核：Block Memory Generator</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0IP%E6%A0%B8%EF%BC%9AAXI-Stream-FIFO"><span class="toc-number">5.</span> <span class="toc-text">添加IP核：AXI-Stream FIFO</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#AXI%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">AXI：</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#AXI%E6%80%BB%E7%BA%BF%E8%AF%BB%E6%93%8D%E4%BD%9C"><span class="toc-number">2.</span> <span class="toc-text">AXI总线读操作</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="toc-number">2.1.</span> <span class="toc-text">代码实现</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#AXI%E6%80%BB%E7%BA%BF%E5%86%99%E6%93%8D%E4%BD%9C"><span class="toc-number">3.</span> <span class="toc-text">AXI总线写操作</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0-1"><span class="toc-number">3.1.</span> <span class="toc-text">代码实现</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E6%8E%A7%E5%88%B6%E9%80%BB%E8%BE%91%EF%BC%8C%E7%94%A8%E4%BA%8E%E9%80%9A%E8%BF%87AXI-Lite%E6%8E%A5%E5%8F%A3%E5%AF%B9RAM%E8%BF%9B%E8%A1%8C%E8%AF%BB%E5%86%99%E6%93%8D%E4%BD%9C%E3%80%82"><span class="toc-number">4.</span> <span class="toc-text">设计一个简单的控制逻辑，用于通过AXI-Lite接口对RAM进行读写操作。</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0IP%E6%A0%B8%EF%BC%9AAXI-BRAM-Controller"><span class="toc-number">4.1.</span> <span class="toc-text">添加IP核：AXI BRAM Controller</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0IP%E6%A0%B8%EF%BC%9ABlock-Memory-Generator"><span class="toc-number">4.2.</span> <span class="toc-text">添加IP核：Block Memory Generator</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0IP%E6%A0%B8%EF%BC%9AAXI-Stream-FIFO"><span class="toc-number">5.</span> <span class="toc-text">添加IP核：AXI-Stream FIFO</span></a></li></ol>
       </div>
     
   </span>
@@ -141,7 +141,7 @@
   <header>
     
     <h1 class="posttitle p-name" itemprop="name headline">
-        AXI总线与应用
+        🔌 AXI总线与应用
     </h1>
 
 
@@ -173,10 +173,12 @@
 <ul>
 <li>AXI总线已经成为高性能SoC设计、FPGA设计中采用的总线标准。</li>
 <li>AXI总线包括：AXI4、AXI4-Lite和AXI4-Stream</li>
-<li></li>
 </ul>
-<h1 id="AXI总线读操作"><a href="#AXI总线读操作" class="headerlink" title="AXI总线读操作"></a>AXI总线读操作</h1><p><a data-fancybox="gallery" data-src="image-2.png" data-caption=""><img src="image-2.png"></a></p>
-<h2 id="状态转换图"><a href="#状态转换图" class="headerlink" title="状态转换图"></a>状态转换图</h2><p><a data-fancybox="gallery" data-src="image-5.png" data-caption=""><img src="image-5.png"></a></p>
+<h1 id="AXI总线读操作"><a href="#AXI总线读操作" class="headerlink" title="AXI总线读操作"></a>AXI总线读操作</h1><div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 15px 0;">
+  <a data-fancybox="gallery" data-src="image-2.png" data-caption="AXI总线读操作"><img src="image-2.png" alt="AXI总线读操作" style="width: 100%; height: auto;"></a>
+  <a data-fancybox="gallery" data-src="image-5.png" data-caption="状态转换图"><img src="image-5.png" alt="状态转换图" style="width: 100%; height: auto;"></a>
+</div>
+
 <h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><p>读数据模块，主要采用状态机三段式进行实现，大致可以分为以下五个状态：</p>
 <ul>
 <li><strong>读空闲 (RD_IDLE)</strong> ：等待触发突发信号。</li>
@@ -185,8 +187,12 @@
 <li><strong>读完成 (RD_LAST)</strong> ：传输最后一个数据。</li>
 <li><strong>读停止 (RD_STOP)</strong> ：复位各自信号。</li>
 </ul>
-<h1 id="AXI总线写操作"><a href="#AXI总线写操作" class="headerlink" title="AXI总线写操作"></a>AXI总线写操作</h1><p><a data-fancybox="gallery" data-src="image-3.png" data-caption=""><img src="image-3.png"></a></p>
-<h2 id="状态转换图-1"><a href="#状态转换图-1" class="headerlink" title="状态转换图"></a>状态转换图</h2><p><a data-fancybox="gallery" data-src="image-4.png" data-caption=""><img src="image-4.png"></a></p>
+<h1 id="AXI总线写操作"><a href="#AXI总线写操作" class="headerlink" title="AXI总线写操作"></a>AXI总线写操作</h1><div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 15px 0;">
+  <a data-fancybox="gallery" data-src="image-3.png" data-caption="AXI总线写操作"><img src="image-3.png" alt="AXI总线写操作" style="width: 100%; height: auto;"></a>
+  <a data-fancybox="gallery" data-src="image-4.png" data-caption="状态转换图"><img src="image-4.png" alt="状态转换图" style="width: 100%; height: auto;"></a>
+</div>
+
+
 <h2 id="代码实现-1"><a href="#代码实现-1" class="headerlink" title="代码实现"></a>代码实现</h2><p>写数据模块，主要采用状态机☐三段式进行实现，大致可以分为以下五个状态：</p>
 <ul>
 <li><strong>写空闲 (WR_IDLE)</strong> ：等待触发突发信号。</li>
@@ -216,7 +222,7 @@
         
           <li><a href="#EDA">EDA</a></li>
         
-          <li><a href="#YSYC">YSYC</a></li>
+          <li><a href="#OSOC">OSOC</a></li>
         
           <li><a href="../../../../../../search/">Search</a></li>
         
@@ -226,23 +232,23 @@
     
     
       <div id="toc-footer" style="display: none">
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#AXI%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">AXI：</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#AXI%E6%80%BB%E7%BA%BF%E8%AF%BB%E6%93%8D%E4%BD%9C"><span class="toc-number">2.</span> <span class="toc-text">AXI总线读操作</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8A%B6%E6%80%81%E8%BD%AC%E6%8D%A2%E5%9B%BE"><span class="toc-number">2.1.</span> <span class="toc-text">状态转换图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="toc-number">2.2.</span> <span class="toc-text">代码实现</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#AXI%E6%80%BB%E7%BA%BF%E5%86%99%E6%93%8D%E4%BD%9C"><span class="toc-number">3.</span> <span class="toc-text">AXI总线写操作</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8A%B6%E6%80%81%E8%BD%AC%E6%8D%A2%E5%9B%BE-1"><span class="toc-number">3.1.</span> <span class="toc-text">状态转换图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0-1"><span class="toc-number">3.2.</span> <span class="toc-text">代码实现</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E6%8E%A7%E5%88%B6%E9%80%BB%E8%BE%91%EF%BC%8C%E7%94%A8%E4%BA%8E%E9%80%9A%E8%BF%87AXI-Lite%E6%8E%A5%E5%8F%A3%E5%AF%B9RAM%E8%BF%9B%E8%A1%8C%E8%AF%BB%E5%86%99%E6%93%8D%E4%BD%9C%E3%80%82"><span class="toc-number">4.</span> <span class="toc-text">设计一个简单的控制逻辑，用于通过AXI-Lite接口对RAM进行读写操作。</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0IP%E6%A0%B8%EF%BC%9AAXI-BRAM-Controller"><span class="toc-number">4.1.</span> <span class="toc-text">添加IP核：AXI BRAM Controller</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0IP%E6%A0%B8%EF%BC%9ABlock-Memory-Generator"><span class="toc-number">4.2.</span> <span class="toc-text">添加IP核：Block Memory Generator</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0IP%E6%A0%B8%EF%BC%9AAXI-Stream-FIFO"><span class="toc-number">5.</span> <span class="toc-text">添加IP核：AXI-Stream FIFO</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#AXI%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">AXI：</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#AXI%E6%80%BB%E7%BA%BF%E8%AF%BB%E6%93%8D%E4%BD%9C"><span class="toc-number">2.</span> <span class="toc-text">AXI总线读操作</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="toc-number">2.1.</span> <span class="toc-text">代码实现</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#AXI%E6%80%BB%E7%BA%BF%E5%86%99%E6%93%8D%E4%BD%9C"><span class="toc-number">3.</span> <span class="toc-text">AXI总线写操作</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0-1"><span class="toc-number">3.1.</span> <span class="toc-text">代码实现</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E6%8E%A7%E5%88%B6%E9%80%BB%E8%BE%91%EF%BC%8C%E7%94%A8%E4%BA%8E%E9%80%9A%E8%BF%87AXI-Lite%E6%8E%A5%E5%8F%A3%E5%AF%B9RAM%E8%BF%9B%E8%A1%8C%E8%AF%BB%E5%86%99%E6%93%8D%E4%BD%9C%E3%80%82"><span class="toc-number">4.</span> <span class="toc-text">设计一个简单的控制逻辑，用于通过AXI-Lite接口对RAM进行读写操作。</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0IP%E6%A0%B8%EF%BC%9AAXI-BRAM-Controller"><span class="toc-number">4.1.</span> <span class="toc-text">添加IP核：AXI BRAM Controller</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0IP%E6%A0%B8%EF%BC%9ABlock-Memory-Generator"><span class="toc-number">4.2.</span> <span class="toc-text">添加IP核：Block Memory Generator</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0IP%E6%A0%B8%EF%BC%9AAXI-Stream-FIFO"><span class="toc-number">5.</span> <span class="toc-text">添加IP核：AXI-Stream FIFO</span></a></li></ol>
       </div>
     
 
     <div id="share-footer" style="display: none">
       <ul>
   <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://cmoments.github.io/FPGA-practice/2026/02/24/FPGA-Ray/Network/AXI%E6%80%BB%E7%BA%BF%E4%B8%8E%E5%BA%94%E7%94%A8/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://cmoments.github.io/FPGA-practice/2026/02/24/FPGA-Ray/Network/AXI%E6%80%BB%E7%BA%BF%E4%B8%8E%E5%BA%94%E7%94%A8/&text=AXI总线与应用"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://cmoments.github.io/FPGA-practice/2026/02/24/FPGA-Ray/Network/AXI%E6%80%BB%E7%BA%BF%E4%B8%8E%E5%BA%94%E7%94%A8/&title=AXI总线与应用"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://cmoments.github.io/FPGA-practice/2026/02/24/FPGA-Ray/Network/AXI%E6%80%BB%E7%BA%BF%E4%B8%8E%E5%BA%94%E7%94%A8/&is_video=false&description=AXI总线与应用"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=AXI总线与应用&body=Check out this article: https://cmoments.github.io/FPGA-practice/2026/02/24/FPGA-Ray/Network/AXI%E6%80%BB%E7%BA%BF%E4%B8%8E%E5%BA%94%E7%94%A8/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://cmoments.github.io/FPGA-practice/2026/02/24/FPGA-Ray/Network/AXI%E6%80%BB%E7%BA%BF%E4%B8%8E%E5%BA%94%E7%94%A8/&title=AXI总线与应用"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://cmoments.github.io/FPGA-practice/2026/02/24/FPGA-Ray/Network/AXI%E6%80%BB%E7%BA%BF%E4%B8%8E%E5%BA%94%E7%94%A8/&title=AXI总线与应用"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://cmoments.github.io/FPGA-practice/2026/02/24/FPGA-Ray/Network/AXI%E6%80%BB%E7%BA%BF%E4%B8%8E%E5%BA%94%E7%94%A8/&title=AXI总线与应用"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://cmoments.github.io/FPGA-practice/2026/02/24/FPGA-Ray/Network/AXI%E6%80%BB%E7%BA%BF%E4%B8%8E%E5%BA%94%E7%94%A8/&title=AXI总线与应用"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://cmoments.github.io/FPGA-practice/2026/02/24/FPGA-Ray/Network/AXI%E6%80%BB%E7%BA%BF%E4%B8%8E%E5%BA%94%E7%94%A8/&name=AXI总线与应用&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://cmoments.github.io/FPGA-practice/2026/02/24/FPGA-Ray/Network/AXI%E6%80%BB%E7%BA%BF%E4%B8%8E%E5%BA%94%E7%94%A8/&t=AXI总线与应用"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://cmoments.github.io/FPGA-practice/2026/02/24/FPGA-Ray/Network/AXI%E6%80%BB%E7%BA%BF%E4%B8%8E%E5%BA%94%E7%94%A8/&text=🔌 AXI总线与应用"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://cmoments.github.io/FPGA-practice/2026/02/24/FPGA-Ray/Network/AXI%E6%80%BB%E7%BA%BF%E4%B8%8E%E5%BA%94%E7%94%A8/&title=🔌 AXI总线与应用"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://cmoments.github.io/FPGA-practice/2026/02/24/FPGA-Ray/Network/AXI%E6%80%BB%E7%BA%BF%E4%B8%8E%E5%BA%94%E7%94%A8/&is_video=false&description=🔌 AXI总线与应用"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=🔌 AXI总线与应用&body=Check out this article: https://cmoments.github.io/FPGA-practice/2026/02/24/FPGA-Ray/Network/AXI%E6%80%BB%E7%BA%BF%E4%B8%8E%E5%BA%94%E7%94%A8/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://cmoments.github.io/FPGA-practice/2026/02/24/FPGA-Ray/Network/AXI%E6%80%BB%E7%BA%BF%E4%B8%8E%E5%BA%94%E7%94%A8/&title=🔌 AXI总线与应用"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://cmoments.github.io/FPGA-practice/2026/02/24/FPGA-Ray/Network/AXI%E6%80%BB%E7%BA%BF%E4%B8%8E%E5%BA%94%E7%94%A8/&title=🔌 AXI总线与应用"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://cmoments.github.io/FPGA-practice/2026/02/24/FPGA-Ray/Network/AXI%E6%80%BB%E7%BA%BF%E4%B8%8E%E5%BA%94%E7%94%A8/&title=🔌 AXI总线与应用"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://cmoments.github.io/FPGA-practice/2026/02/24/FPGA-Ray/Network/AXI%E6%80%BB%E7%BA%BF%E4%B8%8E%E5%BA%94%E7%94%A8/&title=🔌 AXI总线与应用"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://cmoments.github.io/FPGA-practice/2026/02/24/FPGA-Ray/Network/AXI%E6%80%BB%E7%BA%BF%E4%B8%8E%E5%BA%94%E7%94%A8/&name=🔌 AXI总线与应用&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://cmoments.github.io/FPGA-practice/2026/02/24/FPGA-Ray/Network/AXI%E6%80%BB%E7%BA%BF%E4%B8%8E%E5%BA%94%E7%94%A8/&t=🔌 AXI总线与应用"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -276,7 +282,7 @@
      --><!--
        --><li><a href="#EDA">EDA</a></li><!--
      --><!--
-       --><li><a href="#YSYC">YSYC</a></li><!--
+       --><li><a href="#OSOC">OSOC</a></li><!--
      --><!--
        --><li><a href="../../../../../../search/">Search</a></li><!--
      -->
