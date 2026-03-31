@@ -9,39 +9,39 @@
     <meta name="description" content="注意事项 新建元件时对齐单位 如何导入库 如何关联封装 如何更改设计规则 设定坐标与锁定 布局    注意事项新建元件时对齐单位保证元件最后用到工程中与实际大小一致。 如何导入库注意要选择提取库文件。 如何关联封装 如何更改设计规则 设定坐标与锁定 布局 端子一定要放板边(叫CN的器件以及以H开头的)，但是端子的连接点不能仅靠板边 从已经固定了的元件开始，确定供电路径，确定大部分器件放置位置。（">
 <meta property="og:type" content="article">
 <meta property="og:title" content="🧩 真题演练">
-<meta property="og:url" content="https://cmoments.github.io/FPGA-practice/2026/03/06/EDA/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/index.html">
+<meta property="og:url" content="https://cmoments.github.io/FPGA-practice/2026/03/06/EDA/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/index.html">
 <meta property="og:site_name" content="ML-KEM&#39;s FPGA Practice">
 <meta property="og:description" content="注意事项 新建元件时对齐单位 如何导入库 如何关联封装 如何更改设计规则 设定坐标与锁定 布局    注意事项新建元件时对齐单位保证元件最后用到工程中与实际大小一致。 如何导入库注意要选择提取库文件。 如何关联封装 如何更改设计规则 设定坐标与锁定 布局 端子一定要放板边(叫CN的器件以及以H开头的)，但是端子的连接点不能仅靠板边 从已经固定了的元件开始，确定供电路径，确定大部分器件放置位置。（">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://cmoments.github.io/FPGA-practice/2026/03/06/EDA/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/image-1.png">
-<meta property="og:image" content="https://cmoments.github.io/FPGA-practice/2026/03/06/EDA/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/image.png">
-<meta property="og:image" content="https://cmoments.github.io/FPGA-practice/2026/03/06/EDA/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/image-2.png">
-<meta property="og:image" content="https://cmoments.github.io/FPGA-practice/2026/03/06/EDA/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/image-3.png">
-<meta property="og:image" content="https://cmoments.github.io/FPGA-practice/2026/03/06/EDA/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/image-4.png">
-<meta property="og:image" content="https://cmoments.github.io/FPGA-practice/2026/03/06/EDA/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/image-5.png">
-<meta property="og:image" content="https://cmoments.github.io/FPGA-practice/2026/03/06/EDA/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/image-6.png">
-<meta property="og:image" content="https://cmoments.github.io/FPGA-practice/2026/03/06/EDA/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/image-7.png">
-<meta property="og:image" content="https://cmoments.github.io/FPGA-practice/2026/03/06/EDA/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/image-8.png">
+<meta property="og:image" content="https://cmoments.github.io/FPGA-practice/2026/03/06/EDA/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/image-1.png">
+<meta property="og:image" content="https://cmoments.github.io/FPGA-practice/2026/03/06/EDA/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/image.png">
+<meta property="og:image" content="https://cmoments.github.io/FPGA-practice/2026/03/06/EDA/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/image-2.png">
+<meta property="og:image" content="https://cmoments.github.io/FPGA-practice/2026/03/06/EDA/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/image-3.png">
+<meta property="og:image" content="https://cmoments.github.io/FPGA-practice/2026/03/06/EDA/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/image-4.png">
+<meta property="og:image" content="https://cmoments.github.io/FPGA-practice/2026/03/06/EDA/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/image-5.png">
+<meta property="og:image" content="https://cmoments.github.io/FPGA-practice/2026/03/06/EDA/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/image-6.png">
+<meta property="og:image" content="https://cmoments.github.io/FPGA-practice/2026/03/06/EDA/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/image-7.png">
+<meta property="og:image" content="https://cmoments.github.io/FPGA-practice/2026/03/06/EDA/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/image-8.png">
 <meta property="article:published_time" content="2026-03-06T11:32:11.000Z">
-<meta property="article:modified_time" content="2026-03-07T14:10:19.421Z">
+<meta property="article:modified_time" content="2026-03-22T14:04:20.459Z">
 <meta property="article:author" content="ML-KEM">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://cmoments.github.io/FPGA-practice/2026/03/06/EDA/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/image-1.png">
+<meta name="twitter:image" content="https://cmoments.github.io/FPGA-practice/2026/03/06/EDA/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/image-1.png">
     
     
       
         
-          <link rel="shortcut icon" href="../../../../../images/favicon.ico">
+          <link rel="shortcut icon" href="../../../../../../images/favicon.ico">
         
       
       
         
-          <link rel="icon" type="image/png" href="../../../../../images/favicon-192x192.png" sizes="192x192">
+          <link rel="icon" type="image/png" href="../../../../../../images/favicon-192x192.png" sizes="192x192">
         
       
       
         
-          <link rel="apple-touch-icon" sizes="180x180" href="../../../../../images/apple-touch-icon.png">
+          <link rel="apple-touch-icon" sizes="180x180" href="../../../../../../images/apple-touch-icon.png">
         
       
     
@@ -56,7 +56,7 @@
 
     <!-- styles -->
     
-<link rel="stylesheet" href="../../../../../css/style.css">
+<link rel="stylesheet" href="../../../../../../css/style.css">
 
     <!-- persian styles -->
     
@@ -89,7 +89,7 @@
      --><!--
        --><li><a href="#OSOC">OSOC</a></li><!--
      --><!--
-       --><li><a href="../../../../../search/">Search</a></li><!--
+       --><li><a href="../../../../../../search/">Search</a></li><!--
      -->
       </ul>
     </span>
@@ -97,8 +97,10 @@
     <span id="actions">
       <ul>
         
+        <li><a class="icon" aria-label="Previous post" href="../../../../22/EDA/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/4T%E6%A8%A1%E6%8B%9F%E8%B5%9B/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
         
-        <li><a class="icon" aria-label="Next post" href="../../../05/Read/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Next post" href="../../../../05/EDA/%E7%94%B5%E5%B7%A5%E7%94%B5%E5%AD%90%E5%9F%BA%E7%A1%80/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
         
         <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
         <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
@@ -111,17 +113,17 @@
     <br/>
     <div id="share" style="display: none">
       <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://cmoments.github.io/FPGA-practice/2026/03/06/EDA/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://cmoments.github.io/FPGA-practice/2026/03/06/EDA/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/&text=🧩 真题演练"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://cmoments.github.io/FPGA-practice/2026/03/06/EDA/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/&title=🧩 真题演练"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://cmoments.github.io/FPGA-practice/2026/03/06/EDA/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/&is_video=false&description=🧩 真题演练"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://cmoments.github.io/FPGA-practice/2026/03/06/EDA/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://cmoments.github.io/FPGA-practice/2026/03/06/EDA/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/&text=🧩 真题演练"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://cmoments.github.io/FPGA-practice/2026/03/06/EDA/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/&title=🧩 真题演练"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://cmoments.github.io/FPGA-practice/2026/03/06/EDA/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/&is_video=false&description=🧩 真题演练"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
   <li><a class="icon" href="mailto:?subject=🧩 真题演练&body=Check out this article: https://cmoments.github.io/FPGA-practice/2026/03/06/EDA/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://cmoments.github.io/FPGA-practice/2026/03/06/EDA/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/&title=🧩 真题演练"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://cmoments.github.io/FPGA-practice/2026/03/06/EDA/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/&title=🧩 真题演练"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://cmoments.github.io/FPGA-practice/2026/03/06/EDA/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/&title=🧩 真题演练"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://cmoments.github.io/FPGA-practice/2026/03/06/EDA/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/&title=🧩 真题演练"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://cmoments.github.io/FPGA-practice/2026/03/06/EDA/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/&name=🧩 真题演练&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://cmoments.github.io/FPGA-practice/2026/03/06/EDA/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/&t=🧩 真题演练"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://cmoments.github.io/FPGA-practice/2026/03/06/EDA/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/&title=🧩 真题演练"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://cmoments.github.io/FPGA-practice/2026/03/06/EDA/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/&title=🧩 真题演练"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://cmoments.github.io/FPGA-practice/2026/03/06/EDA/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/&title=🧩 真题演练"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://cmoments.github.io/FPGA-practice/2026/03/06/EDA/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/&title=🧩 真题演练"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://cmoments.github.io/FPGA-practice/2026/03/06/EDA/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/&name=🧩 真题演练&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://cmoments.github.io/FPGA-practice/2026/03/06/EDA/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/&t=🧩 真题演练"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -191,6 +193,15 @@
 </ul>
 <p><a data-fancybox="gallery" data-src="image-7.png" data-caption="原理图"><img src="image-7.png" alt="原理图"></a></p>
 <p><a data-fancybox="gallery" data-src="image-8.png" data-caption="确认大体结构"><img src="image-8.png" alt="确认大体结构"></a></p>
+<p>本次主要讲了4个知识点或技巧：</p>
+<ol>
+<li>地孔</li>
+<li>改网络颜色</li>
+<li>铺地之前加泪滴</li>
+<li>DRC</li>
+</ol>
+<p>各位同学，我们暂定做题顺序为 17届4T模拟赛题→16届国赛题→16届省赛题→15届国赛题→15届省赛题，题目都在百度网盘。如果已经在做其他题目或者没按这个顺序做也没关系，我都会给批改点评。</p>
+<p>上节课没来听课的同学，注意把16届国赛的设计题做完前面一部分，也就是画封装、绑定封装这些耗时比较长但简单的工作，星期二的第七次培训，我们就直接布局和走线了</p>
 
   </div>
 </article>
@@ -210,7 +221,7 @@
         
           <li><a href="#OSOC">OSOC</a></li>
         
-          <li><a href="../../../../../search/">Search</a></li>
+          <li><a href="../../../../../../search/">Search</a></li>
         
       </ul>
     </div>
@@ -224,17 +235,17 @@
 
     <div id="share-footer" style="display: none">
       <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://cmoments.github.io/FPGA-practice/2026/03/06/EDA/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://cmoments.github.io/FPGA-practice/2026/03/06/EDA/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/&text=🧩 真题演练"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://cmoments.github.io/FPGA-practice/2026/03/06/EDA/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/&title=🧩 真题演练"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://cmoments.github.io/FPGA-practice/2026/03/06/EDA/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/&is_video=false&description=🧩 真题演练"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://cmoments.github.io/FPGA-practice/2026/03/06/EDA/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://cmoments.github.io/FPGA-practice/2026/03/06/EDA/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/&text=🧩 真题演练"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://cmoments.github.io/FPGA-practice/2026/03/06/EDA/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/&title=🧩 真题演练"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://cmoments.github.io/FPGA-practice/2026/03/06/EDA/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/&is_video=false&description=🧩 真题演练"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
   <li><a class="icon" href="mailto:?subject=🧩 真题演练&body=Check out this article: https://cmoments.github.io/FPGA-practice/2026/03/06/EDA/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://cmoments.github.io/FPGA-practice/2026/03/06/EDA/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/&title=🧩 真题演练"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://cmoments.github.io/FPGA-practice/2026/03/06/EDA/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/&title=🧩 真题演练"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://cmoments.github.io/FPGA-practice/2026/03/06/EDA/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/&title=🧩 真题演练"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://cmoments.github.io/FPGA-practice/2026/03/06/EDA/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/&title=🧩 真题演练"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://cmoments.github.io/FPGA-practice/2026/03/06/EDA/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/&name=🧩 真题演练&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://cmoments.github.io/FPGA-practice/2026/03/06/EDA/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/&t=🧩 真题演练"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://cmoments.github.io/FPGA-practice/2026/03/06/EDA/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/&title=🧩 真题演练"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://cmoments.github.io/FPGA-practice/2026/03/06/EDA/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/&title=🧩 真题演练"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://cmoments.github.io/FPGA-practice/2026/03/06/EDA/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/&title=🧩 真题演练"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://cmoments.github.io/FPGA-practice/2026/03/06/EDA/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/&title=🧩 真题演练"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://cmoments.github.io/FPGA-practice/2026/03/06/EDA/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/&name=🧩 真题演练&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://cmoments.github.io/FPGA-practice/2026/03/06/EDA/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/&t=🧩 真题演练"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -270,7 +281,7 @@
      --><!--
        --><li><a href="#OSOC">OSOC</a></li><!--
      --><!--
-       --><li><a href="../../../../../search/">Search</a></li><!--
+       --><li><a href="../../../../../../search/">Search</a></li><!--
      -->
       </ul>
     </nav>
@@ -318,7 +329,7 @@
   </script>
 
 
-<script src="../../../../../js/main.js"></script>
+<script src="../../../../../../js/main.js"></script>
 
 <!-- search -->
 

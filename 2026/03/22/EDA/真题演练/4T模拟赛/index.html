@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="完成作业Σ(っ °Д °;)っ 达成成就：第一块版  批改反馈     修改后">
+<meta property="og:type" content="article">
+<meta property="og:title" content="🧩 4T模拟赛">
+<meta property="og:url" content="https://cmoments.github.io/FPGA-practice/2026/03/22/EDA/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/4T%E6%A8%A1%E6%8B%9F%E8%B5%9B/index.html">
+<meta property="og:site_name" content="ML-KEM&#39;s FPGA Practice">
+<meta property="og:description" content="完成作业Σ(っ °Д °;)っ 达成成就：第一块版  批改反馈     修改后">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cmoments.github.io/FPGA-practice/2026/03/22/EDA/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/4T%E6%A8%A1%E6%8B%9F%E8%B5%9B/4T%E6%A8%A1%E6%8B%9F%E8%B5%9B/bfb9a570782efbc95cdcee86cc11a520.jpg">
+<meta property="og:image" content="https://cmoments.github.io/FPGA-practice/2026/03/22/EDA/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/4T%E6%A8%A1%E6%8B%9F%E8%B5%9B/4T%E6%A8%A1%E6%8B%9F%E8%B5%9B/2a91039e9052ec2963d774b06043926c.jpg">
+<meta property="og:image" content="https://cmoments.github.io/FPGA-practice/2026/03/22/EDA/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/4T%E6%A8%A1%E6%8B%9F%E8%B5%9B/4T%E6%A8%A1%E6%8B%9F%E8%B5%9B/d7f833f6d40057978de715db01225de7.jpg">
+<meta property="og:image" content="https://cmoments.github.io/FPGA-practice/2026/03/22/EDA/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/4T%E6%A8%A1%E6%8B%9F%E8%B5%9B/4T%E6%A8%A1%E6%8B%9F%E8%B5%9B/d052a75df17848b5d21b0eb10a5cfcc2.jpg">
+<meta property="og:image" content="https://cmoments.github.io/FPGA-practice/2026/03/22/EDA/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/4T%E6%A8%A1%E6%8B%9F%E8%B5%9B/4T%E6%A8%A1%E6%8B%9F%E8%B5%9B/image-2.png">
+<meta property="og:image" content="https://cmoments.github.io/FPGA-practice/2026/03/22/EDA/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/4T%E6%A8%A1%E6%8B%9F%E8%B5%9B/4T%E6%A8%A1%E6%8B%9F%E8%B5%9B/image-1.png">
+<meta property="og:image" content="https://cmoments.github.io/FPGA-practice/2026/03/22/EDA/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/4T%E6%A8%A1%E6%8B%9F%E8%B5%9B/4T%E6%A8%A1%E6%8B%9F%E8%B5%9B/image.png">
+<meta property="og:image" content="https://cmoments.github.io/FPGA-practice/2026/03/22/EDA/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/4T%E6%A8%A1%E6%8B%9F%E8%B5%9B/4T%E6%A8%A1%E6%8B%9F%E8%B5%9B/image-5.png">
+<meta property="og:image" content="https://cmoments.github.io/FPGA-practice/2026/03/22/EDA/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/4T%E6%A8%A1%E6%8B%9F%E8%B5%9B/4T%E6%A8%A1%E6%8B%9F%E8%B5%9B/image-6.png">
+<meta property="article:published_time" content="2026-03-22T14:02:29.000Z">
+<meta property="article:modified_time" content="2026-03-26T01:46:38.242Z">
+<meta property="article:author" content="ML-KEM">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cmoments.github.io/FPGA-practice/2026/03/22/EDA/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/4T%E6%A8%A1%E6%8B%9F%E8%B5%9B/4T%E6%A8%A1%E6%8B%9F%E8%B5%9B/bfb9a570782efbc95cdcee86cc11a520.jpg">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="../../../../../../images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="../../../../../../images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="../../../../../../images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>🧩 4T模拟赛</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="../../../../../../css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css" />
+  
+
+
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="#FPGA-Ray">FPGA-Ray</a></li><!--
+     --><!--
+       --><li><a href="#EDA">EDA</a></li><!--
+     --><!--
+       --><li><a href="#OSOC">OSOC</a></li><!--
+     --><!--
+       --><li><a href="../../../../../../search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="../../../../26/EDA/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/15%E5%B1%8A%E7%9C%81%E8%B5%9B/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="../../../../06/EDA/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://cmoments.github.io/FPGA-practice/2026/03/22/EDA/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/4T%E6%A8%A1%E6%8B%9F%E8%B5%9B/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://cmoments.github.io/FPGA-practice/2026/03/22/EDA/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/4T%E6%A8%A1%E6%8B%9F%E8%B5%9B/&text=🧩 4T模拟赛"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://cmoments.github.io/FPGA-practice/2026/03/22/EDA/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/4T%E6%A8%A1%E6%8B%9F%E8%B5%9B/&title=🧩 4T模拟赛"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://cmoments.github.io/FPGA-practice/2026/03/22/EDA/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/4T%E6%A8%A1%E6%8B%9F%E8%B5%9B/&is_video=false&description=🧩 4T模拟赛"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=🧩 4T模拟赛&body=Check out this article: https://cmoments.github.io/FPGA-practice/2026/03/22/EDA/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/4T%E6%A8%A1%E6%8B%9F%E8%B5%9B/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://cmoments.github.io/FPGA-practice/2026/03/22/EDA/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/4T%E6%A8%A1%E6%8B%9F%E8%B5%9B/&title=🧩 4T模拟赛"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://cmoments.github.io/FPGA-practice/2026/03/22/EDA/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/4T%E6%A8%A1%E6%8B%9F%E8%B5%9B/&title=🧩 4T模拟赛"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://cmoments.github.io/FPGA-practice/2026/03/22/EDA/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/4T%E6%A8%A1%E6%8B%9F%E8%B5%9B/&title=🧩 4T模拟赛"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://cmoments.github.io/FPGA-practice/2026/03/22/EDA/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/4T%E6%A8%A1%E6%8B%9F%E8%B5%9B/&title=🧩 4T模拟赛"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://cmoments.github.io/FPGA-practice/2026/03/22/EDA/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/4T%E6%A8%A1%E6%8B%9F%E8%B5%9B/&name=🧩 4T模拟赛&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://cmoments.github.io/FPGA-practice/2026/03/22/EDA/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/4T%E6%A8%A1%E6%8B%9F%E8%B5%9B/&t=🧩 4T模拟赛"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%8C%E6%88%90%E4%BD%9C%E4%B8%9A"><span class="toc-number">1.</span> <span class="toc-text">完成作业</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%89%B9%E6%94%B9%E5%8F%8D%E9%A6%88"><span class="toc-number">2.</span> <span class="toc-text">批改反馈</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E5%90%8E"><span class="toc-number">3.</span> <span class="toc-text">修改后</span></a></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        🧩 4T模拟赛
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">ML-KEM</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2026-03-22T14:02:29.000Z" class="dt-published" itemprop="datePublished">2026-03-22</time>
+        
+      
+    </div>
+
+
+      
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <p><a data-fancybox="gallery" data-src="bfb9a570782efbc95cdcee86cc11a520.jpg" data-caption=""><img src="bfb9a570782efbc95cdcee86cc11a520.jpg"></a><br><a data-fancybox="gallery" data-src="2a91039e9052ec2963d774b06043926c.jpg" data-caption=""><img src="2a91039e9052ec2963d774b06043926c.jpg"></a><br><a data-fancybox="gallery" data-src="d7f833f6d40057978de715db01225de7.jpg" data-caption=""><img src="d7f833f6d40057978de715db01225de7.jpg"></a></p>
+<p><a data-fancybox="gallery" data-src="d052a75df17848b5d21b0eb10a5cfcc2.jpg" data-caption=""><img src="d052a75df17848b5d21b0eb10a5cfcc2.jpg"></a></p>
+<h1 id="完成作业"><a href="#完成作业" class="headerlink" title="完成作业"></a>完成作业</h1><p>Σ(っ °Д °;)っ 达成成就：第一块版</p>
+<p><a data-fancybox="gallery" data-src="image-2.png" data-caption=""><img src="image-2.png"></a><br><a data-fancybox="gallery" data-src="image-1.png" data-caption=""><img src="image-1.png"></a><br><a data-fancybox="gallery" data-src="image.png" data-caption=""><img src="image.png"></a></p>
+<h1 id="批改反馈"><a href="#批改反馈" class="headerlink" title="批改反馈"></a>批改反馈</h1><div class="pdf-container"><iframe src="/FPGA-practice/js/pdfjs/web/viewer.html?file=/FPGA-practice/2026/03/22/EDA/真题演练/4T模拟赛/4T模拟赛-DHX.pdf" width="100%" height="600px"></iframe></div>
+
+
+
+
+<h1 id="修改后"><a href="#修改后" class="headerlink" title="修改后"></a>修改后</h1><p><a data-fancybox="gallery" data-src="image-5.png" data-caption=""><img src="image-5.png"></a></p>
+<p><a data-fancybox="gallery" data-src="image-6.png" data-caption=""><img src="image-6.png"></a></p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="#FPGA-Ray">FPGA-Ray</a></li>
+        
+          <li><a href="#EDA">EDA</a></li>
+        
+          <li><a href="#OSOC">OSOC</a></li>
+        
+          <li><a href="../../../../../../search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%8C%E6%88%90%E4%BD%9C%E4%B8%9A"><span class="toc-number">1.</span> <span class="toc-text">完成作业</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%89%B9%E6%94%B9%E5%8F%8D%E9%A6%88"><span class="toc-number">2.</span> <span class="toc-text">批改反馈</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E5%90%8E"><span class="toc-number">3.</span> <span class="toc-text">修改后</span></a></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://cmoments.github.io/FPGA-practice/2026/03/22/EDA/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/4T%E6%A8%A1%E6%8B%9F%E8%B5%9B/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://cmoments.github.io/FPGA-practice/2026/03/22/EDA/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/4T%E6%A8%A1%E6%8B%9F%E8%B5%9B/&text=🧩 4T模拟赛"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://cmoments.github.io/FPGA-practice/2026/03/22/EDA/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/4T%E6%A8%A1%E6%8B%9F%E8%B5%9B/&title=🧩 4T模拟赛"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://cmoments.github.io/FPGA-practice/2026/03/22/EDA/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/4T%E6%A8%A1%E6%8B%9F%E8%B5%9B/&is_video=false&description=🧩 4T模拟赛"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=🧩 4T模拟赛&body=Check out this article: https://cmoments.github.io/FPGA-practice/2026/03/22/EDA/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/4T%E6%A8%A1%E6%8B%9F%E8%B5%9B/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://cmoments.github.io/FPGA-practice/2026/03/22/EDA/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/4T%E6%A8%A1%E6%8B%9F%E8%B5%9B/&title=🧩 4T模拟赛"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://cmoments.github.io/FPGA-practice/2026/03/22/EDA/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/4T%E6%A8%A1%E6%8B%9F%E8%B5%9B/&title=🧩 4T模拟赛"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://cmoments.github.io/FPGA-practice/2026/03/22/EDA/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/4T%E6%A8%A1%E6%8B%9F%E8%B5%9B/&title=🧩 4T模拟赛"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://cmoments.github.io/FPGA-practice/2026/03/22/EDA/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/4T%E6%A8%A1%E6%8B%9F%E8%B5%9B/&title=🧩 4T模拟赛"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://cmoments.github.io/FPGA-practice/2026/03/22/EDA/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/4T%E6%A8%A1%E6%8B%9F%E8%B5%9B/&name=🧩 4T模拟赛&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://cmoments.github.io/FPGA-practice/2026/03/22/EDA/%E7%9C%9F%E9%A2%98%E6%BC%94%E7%BB%83/4T%E6%A8%A1%E6%8B%9F%E8%B5%9B/&t=🧩 4T模拟赛"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2025-2026
+    ML-KEM
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="#FPGA-Ray">FPGA-Ray</a></li><!--
+     --><!--
+       --><li><a href="#EDA">EDA</a></li><!--
+     --><!--
+       --><li><a href="#OSOC">OSOC</a></li><!--
+     --><!--
+       --><li><a href="../../../../../../search/">Search</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="../../../../../../js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+<!-- FancyBox -->
+
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
+  <script>
+    Fancybox.defaults.hideScrollbar = false;
+  </script>
+
+
+
+</body>
+</html>
