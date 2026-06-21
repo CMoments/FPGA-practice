@@ -23,8 +23,10 @@
 <meta property="og:image" content="https://cmoments.github.io/FPGA-practice/2026/06/13/FPGA/AC880-xc7z020clg484-2/UART/UART/image-6.png">
 <meta property="og:image" content="https://cmoments.github.io/FPGA-practice/2026/06/13/FPGA/AC880-xc7z020clg484-2/UART/UART/image-7.png">
 <meta property="og:image" content="https://cmoments.github.io/FPGA-practice/2026/06/13/FPGA/AC880-xc7z020clg484-2/UART/UART/image-8.png">
+<meta property="og:image" content="https://cmoments.github.io/FPGA-practice/2026/06/13/FPGA/AC880-xc7z020clg484-2/UART/UART/image-10.png">
+<meta property="og:image" content="https://cmoments.github.io/FPGA-practice/2026/06/13/FPGA/AC880-xc7z020clg484-2/UART/UART/image-11.png">
 <meta property="article:published_time" content="2026-06-13T02:00:00.000Z">
-<meta property="article:modified_time" content="2026-06-15T08:07:28.216Z">
+<meta property="article:modified_time" content="2026-06-19T13:50:29.903Z">
 <meta property="article:author" content="ML-KEM">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://cmoments.github.io/FPGA-practice/2026/06/13/FPGA/AC880-xc7z020clg484-2/UART/UART/image-1.png">
@@ -84,11 +86,11 @@
     <span id="nav">
       <ul>
         <!--
-       --><li><a href="#FPGA">FPGA</a></li><!--
+       --><li><a href="../../../../../../#FPGA">FPGA</a></li><!--
      --><!--
-       --><li><a href="#EDA">EDA</a></li><!--
+       --><li><a href="../../../../../../#EDA">EDA</a></li><!--
      --><!--
-       --><li><a href="#OSOC">OSOC</a></li><!--
+       --><li><a href="../../../../../../#OSOC">OSOC</a></li><!--
      --><!--
        --><li><a href="../../../../../../search/">Search</a></li><!--
      -->
@@ -98,8 +100,10 @@
     <span id="actions">
       <ul>
         
+        <li><a class="icon" aria-label="Previous post" href="../../../../21/FPGA/AC880-xc7z020clg484-2/LSM/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
         
-        <li><a class="icon" aria-label="Next post" href="../../../../07/FPGA/AC880-xc7z020clg484-2/Verilog%E5%8F%82%E6%95%B0%E5%8C%96%E8%AE%BE%E8%AE%A1/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Next post" href="../../../../07/FPGA/AC880-xc7z020clg484-2/Verilog-Misc/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
         
         <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
         <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
@@ -191,10 +195,12 @@
 <h3 id="发送端"><a href="#发送端" class="headerlink" title="发送端"></a>发送端</h3><p>uart_tx，有八位输入端口: Data[7:0],Clk,Reset_n，输出uart_tx与LED。<br>波特率9600——每一位占用时间 1&#x2F;9600 秒。</p>
 <figure class="post-figure" style="margin:1.6em 0;text-align:center;"><a data-fancybox="gallery" data-src="image-7.png" data-caption="发送端时序分配"><img src="image-7.png" alt="发送端时序分配" style="width:90%;max-width:100%;height:auto;" loading="lazy"></a><figcaption style="margin-top:.7em;font-size:.9em;line-height:1.6;color:#666;"><strong class="fig-label" style="color:#333;">图7　</strong>在1秒的发送周期内，仅在1&#x2F;960秒的红色区间完成一帧数据（start→sw0~sw7→stop共10位）的串行发送，其余时间为高电平空闲态；图中”计数值0”表示计数器当前发送数据为0</figcaption></figure>
 
-<p>仿真得出误差远小于+-2.5%，符合要求：</p>
+<p>仿真得出误差远小于$\pm$ 2.5% ，符合要求：</p>
 <figure class="post-figure" style="margin:1.6em 0;text-align:center;"><a data-fancybox="gallery" data-src="image-8.png" data-caption="ModelSim功能仿真波形（tx_tb）"><img src="image-8.png" alt="ModelSim功能仿真波形（tx_tb）" style="width:90%;max-width:100%;height:auto;" loading="lazy"></a><figcaption style="margin-top:.7em;font-size:.9em;line-height:1.6;color:#666;"><strong class="fig-label" style="color:#333;">图8　</strong>待发送数据Data[7:0]&#x3D;0xaa（二进制10101010）经uart_tx串行输出；测量黄色与蓝色游标的时间差为0.10416ms≈1&#x2F;9600秒，验证波特率9600bps的位时间精度满足设计要求</figcaption></figure>
 
 <h3 id="接收端验证"><a href="#接收端验证" class="headerlink" title="接收端验证"></a>接收端验证</h3><p><video src="video.mp4" controls preload="metadata" style="width:100%; max-width:800px; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.1);"></video></p>
+<p><a data-fancybox="gallery" data-src="image-10.png" data-caption="一个比较通用的UART串口发送模块"><img src="image-10.png" alt="一个比较通用的UART串口发送模块"></a></p>
+<p><a data-fancybox="gallery" data-src="image-11.png" data-caption="接收端验证"><img src="image-11.png" alt="接收端验证"></a></p>
 
   </div>
 </article>
@@ -208,11 +214,11 @@
     <div id="nav-footer" style="display: none">
       <ul>
         
-          <li><a href="#FPGA">FPGA</a></li>
+          <li><a href="../../../../../../#FPGA">FPGA</a></li>
         
-          <li><a href="#EDA">EDA</a></li>
+          <li><a href="../../../../../../#EDA">EDA</a></li>
         
-          <li><a href="#OSOC">OSOC</a></li>
+          <li><a href="../../../../../../#OSOC">OSOC</a></li>
         
           <li><a href="../../../../../../search/">Search</a></li>
         
@@ -268,11 +274,11 @@
     <nav>
       <ul>
         <!--
-       --><li><a href="#FPGA">FPGA</a></li><!--
+       --><li><a href="../../../../../../#FPGA">FPGA</a></li><!--
      --><!--
-       --><li><a href="#EDA">EDA</a></li><!--
+       --><li><a href="../../../../../../#EDA">EDA</a></li><!--
      --><!--
-       --><li><a href="#OSOC">OSOC</a></li><!--
+       --><li><a href="../../../../../../#OSOC">OSOC</a></li><!--
      --><!--
        --><li><a href="../../../../../../search/">Search</a></li><!--
      -->
